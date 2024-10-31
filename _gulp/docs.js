@@ -61,7 +61,7 @@ gulp.task('html:docs', () => {
         .pipe(changed(docs, {hasChanged: changed.compareContents}))
         .pipe(plumber(plumberNotify('HTML')))
         .pipe(fileinclude(fileInclude))
-        .pipe(webphtml())
+        .pipe(webphtml(['.jpg', '.png', '.gif']))
         .pipe(htmlclean())
         .pipe(gulp.dest(docs));
 });
