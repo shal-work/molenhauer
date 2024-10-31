@@ -1,0 +1,175 @@
+ymaps[class|="ymaps-2-1"]:first-child  {
+    filter: grayscale( 100% );
+    color: var(--primary)
+}
+ymaps {
+    color: var(--primary)
+}
+
+.blockmap {
+    position: relative;
+    z-index: 30;
+
+    &__decor {
+        width: 0;
+        height: 0;
+        border-bottom: 100px solid var(--primary);
+        border-right: 100px solid transparent;
+    }
+
+    &__block {
+        width: 100%;
+        height: 406px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        @media (max-width: 920px) {
+            height: 279px;
+        }
+        @media (max-width: 620px) {
+            height: 560px;
+            align-items: flex-end;
+        }
+    }
+
+    &__contacts {
+        position: absolute;
+        @media (max-width: 620px) {
+           padding-bottom: 31px;
+        }
+    }
+
+    &__map {
+        width: 100%;
+        height: 100%;
+        border-top: 2px solid var(--grey-text-comm);
+    }
+}
+
+.contacts {
+    background-color: var(--white);
+    position: relative;
+    z-index: 1;
+    width: 493px;
+    height: 346px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 24px;
+    gap: 69px;
+    margin-left: 5px;
+    @media (min-width: 1728px) {
+        width: 493px;
+        height: 346px;
+        gap: 69px;
+    }
+    @media (max-width: 920px) {
+        width: 361px;
+        height: 240px;
+        gap: 30px;
+    }
+    @media (max-width: 620px) {
+        width: 234px;
+        height: 240px;
+        padding: 17px;
+    }
+    &__logo {
+        width: 72px;
+        height: 55px;
+        opacity: 0.9;
+        background-image: url(./assets/img/logo_short.svg);
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: 100%;
+        z-index: 10;
+        @media (min-width: 1728px) {
+            width: 72px;
+            height: 55px;
+        }
+        @media (max-width: 920px) {
+            width: 54px;
+            height: 41px;
+        }
+        @media (max-width: 620px) {
+            display: none;
+        }
+    }
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+    &__network {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    &__text {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 22px;
+        color: var(--black3);
+        margin-left: 12px;
+        @media (min-width: 1728px) {
+            font-size: 15px;
+        }
+        @media (max-width: 920px) {
+            font-size: 13px;
+            font-weight: 600;
+        }
+    }
+    &__content {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 22.5px;
+        color: var(--black3);
+        @media (min-width: 1728px) {
+            font-size: 15px;
+            line-height: 22.5px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 920px) {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 19.5px;
+        }
+    }
+
+    &__e-mail {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 22.5px;
+        color: var(--orange-light);
+    }
+    &__ico {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--orange-light);
+        background-color: transparent;
+        border-radius: 50%;
+        color: var(--orange-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        will-change: transform;
+        transition: all .5s ease;
+        &:hover {
+            background-color: var(--orange-light);
+            color: var(--white);
+        }
+        @media (min-width: 1728px) {
+            width: 40px;
+            height: 40px;
+        }
+        @media (max-width: 920px) {
+            width: 30px;
+            height: 30px;
+        }
+    }
+    &__hr {
+        border: none;
+        border-top: 1px solid var(--orange-light);
+        margin-bottom: 16px;
+    }
+}

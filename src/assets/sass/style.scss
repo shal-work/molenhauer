@@ -1,0 +1,29 @@
+@import './general/gi';
+@import './components/ui';
+@import './helpers/classes';
+@import 'main';
+
+@import 'site/bloks/header';
+@import 'site/bloks/footer';
+@import 'site/bloks/animate';
+
+@import 'site/pages/banner';
+@import 'site/pages/plane';
+@import 'site/pages/experience';
+@import 'site/pages/know-how';
+@import 'site/pages/key-players';
+@import 'site/pages/triad';
+@import 'site/pages/team';
+@import 'site/pages/blockmap';
+
+
+
+.fadeOut {
+    opacity: 0;
+}
+.fadeIn {
+    opacity: 1;
+}
+input[type=radio] {
+    display: none;
+}

@@ -1,0 +1,34 @@
+.rotation {
+    will-change: transform;
+	animation: 1s ease-in-out 2 rotation;
+}
+
+
+@keyframes rotation {
+
+    from {
+        transform: rotateZ(353deg);
+    }
+    50% {
+        transform: rotateZ(22deg);
+    }
+    to {
+        transform: rotateZ(353deg);
+    }
+}
+
+.fadeIn {
+    will-change: transform;
+	animation: .5s ease-in-out 1 fadeIn;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0)
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}

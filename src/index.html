@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Molenhauer by figma</title>
+    <meta name="descriptin" content="Сайт по макерту Figma">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="wrapper__img"></div>
+
+        <div class="blur">
+            <div class="blur__top"></div>
+            <div class="blur__left"></div>
+        </div>
+        @@include('html/blocks/header.html', {'src': '.'})
+        <main class="main ">
+                @@include('html/pages/banner.html')
+                @@include('html/pages/plane.html')
+                @@include('html/pages/experience.html')
+        </main>
+        <div class="supportive">
+            @@include('html/pages/know-how.html')
+            @@include('html/pages/key-players.html')
+            @@include('html/pages/triad.html')
+            @@include('html/pages/team.html')
+            @@include('html/pages/blockmap.html')
+            <div class="element"></div>
+        </div>
+
+    </div>
+    @@include('html/blocks/footer.html',{'src': '.'})
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
