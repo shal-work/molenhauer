@@ -1152,7 +1152,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function(dur, display, fin) { //Д.З.4-8
-    
+
     for (let i = 0; i < this.length; i++) {
         this.fadeInBody(dur, display, fin, i);
     }
@@ -1162,7 +1162,7 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function(dur, d
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function(dur, fin) { //Д.З.4-8
-    
+
     for (let i = 0; i < this.length; i++) {
         this.fadeOutBody(dur, fin, i);
     }
@@ -1172,7 +1172,7 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function(dur, 
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function(dur, display, fin) { //Д.З.4-8
-    
+
     for (let i = 0; i < this.length; i++) {
         if (window.getComputedStyle(this[i]).display === 'none') {
             this.fadeInBody(dur, display, fin, i);
@@ -1186,21 +1186,18 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function(du
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeInBody = function(dur, display, fin, i) { //Д.З.4-8
-    
     this[i].style.display = display || 'block';
     const _fadeIn = (complection) => {
         this[i].style.opacity = complection;
     };
-    
     const ani = this.animateOverTime(dur, _fadeIn, fin);
     requestAnimationFrame(ani);
-    
+
     return this[i];
 }
 
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOutBody = function(dur, fin, i) { //Д.З.4-8
-    
     const _fadeOut = (complection) => {
         this[i].style.opacity = 1 - complection;
         if (complection === 1) {
@@ -1239,12 +1236,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.animateOverTime = functi
 
     return _animateOverTime;
 };
-
-
-
-
-
-
 
 
 /***/ }),
@@ -1372,20 +1363,27 @@ $('.collapse').on('click', function() {
 });
 
 // для experience
+let isMake = true;
 $.prototype.showPicture = function() {
 
     for (let i = 0; i < this.length; i++) {
         const howNum = this[i].querySelectorAll('.experience__number');
         $(this[i]).click(() => {
-            $(this[i]).find('.experience__picture').fadeToggle(800);
-            $(this[i]).find('.experience__number').toggleClass('experience__color-white');
-            // howNum.forEach(item => item.classList.remove('experience__number-active'));
-            $(this[i]).find('.experience__number').toggleClass('experience__number-active');
-            $(this[i]).find('.experience__subtitle').toggleClass('experience__color-white');
-            $(this[i]).toggleClass('experience__item-shadow');
+            if (isMake) {
+                isMake = false;
+                // $(this[i]).find('.experience__picture').fadeToggle(100, ,isFun());
+                $(this[i]).find('.experience__picture').fadeToggle(800, 'block', function(){isMake = true});
+                // $(this[i]).find('.experience__picture').fadeToggle(800);
+                $(this[i]).find('.experience__number').toggleClass('experience__color-white');
+                $(this[i]).find('.experience__number').toggleClass('experience__number-active');
+                $(this[i]).find('.experience__subtitle').toggleClass('experience__color-white');
+                $(this[i]).toggleClass('experience__item-shadow');
+            }
         });
     }
 };
+// работа с навигацией якорей
+
 $('.experience__item').showPicture();
 
 let widthWidow = 0;

@@ -46,20 +46,27 @@ $('.collapse').on('click', function() {
 });
 
 // для experience
+let isMake = true;
 $.prototype.showPicture = function() {
 
     for (let i = 0; i < this.length; i++) {
         const howNum = this[i].querySelectorAll('.experience__number');
         $(this[i]).click(() => {
-            $(this[i]).find('.experience__picture').fadeToggle(800);
-            $(this[i]).find('.experience__number').toggleClass('experience__color-white');
-            // howNum.forEach(item => item.classList.remove('experience__number-active'));
-            $(this[i]).find('.experience__number').toggleClass('experience__number-active');
-            $(this[i]).find('.experience__subtitle').toggleClass('experience__color-white');
-            $(this[i]).toggleClass('experience__item-shadow');
+            if (isMake) {
+                isMake = false;
+                // $(this[i]).find('.experience__picture').fadeToggle(100, ,isFun());
+                $(this[i]).find('.experience__picture').fadeToggle(800, 'block', function(){isMake = true});
+                // $(this[i]).find('.experience__picture').fadeToggle(800);
+                $(this[i]).find('.experience__number').toggleClass('experience__color-white');
+                $(this[i]).find('.experience__number').toggleClass('experience__number-active');
+                $(this[i]).find('.experience__subtitle').toggleClass('experience__color-white');
+                $(this[i]).toggleClass('experience__item-shadow');
+            }
         });
     }
 };
+// работа с навигацией якорей
+
 $('.experience__item').showPicture();
 
 let widthWidow = 0;

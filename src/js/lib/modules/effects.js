@@ -1,7 +1,7 @@
 import $ from '../core';
 
 $.prototype.fadeIn = function(dur, display, fin) { //Д.З.4-8
-    
+
     for (let i = 0; i < this.length; i++) {
         this.fadeInBody(dur, display, fin, i);
     }
@@ -11,7 +11,7 @@ $.prototype.fadeIn = function(dur, display, fin) { //Д.З.4-8
 
 
 $.prototype.fadeOut = function(dur, fin) { //Д.З.4-8
-    
+
     for (let i = 0; i < this.length; i++) {
         this.fadeOutBody(dur, fin, i);
     }
@@ -21,7 +21,7 @@ $.prototype.fadeOut = function(dur, fin) { //Д.З.4-8
 
 
 $.prototype.fadeToggle = function(dur, display, fin) { //Д.З.4-8
-    
+
     for (let i = 0; i < this.length; i++) {
         if (window.getComputedStyle(this[i]).display === 'none') {
             this.fadeInBody(dur, display, fin, i);
@@ -35,21 +35,18 @@ $.prototype.fadeToggle = function(dur, display, fin) { //Д.З.4-8
 
 
 $.prototype.fadeInBody = function(dur, display, fin, i) { //Д.З.4-8
-    
     this[i].style.display = display || 'block';
     const _fadeIn = (complection) => {
         this[i].style.opacity = complection;
     };
-    
     const ani = this.animateOverTime(dur, _fadeIn, fin);
     requestAnimationFrame(ani);
-    
+
     return this[i];
 }
 
 
 $.prototype.fadeOutBody = function(dur, fin, i) { //Д.З.4-8
-    
     const _fadeOut = (complection) => {
         this[i].style.opacity = 1 - complection;
         if (complection === 1) {
@@ -88,9 +85,3 @@ $.prototype.animateOverTime = function(dur, cb, fin) {
 
     return _animateOverTime;
 };
-
-
-
-
-
-

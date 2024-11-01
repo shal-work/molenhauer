@@ -4045,6 +4045,11 @@ table {
   color: var(--orange);
   width: 30%;
 }
+@media (max-width: 1200px) {
+  .team__paragraph {
+    width: auto;
+  }
+}
 .team__row {
   display: flex;
   margin-top: 71px;
@@ -4470,7 +4475,7 @@ table {
   max-width: none;
   max-height: none;
   width: 50%;
-  padding: 1%;
+  padding: 20px;
   z-index: 22222;
   background-color: var(--contact);
   will-change: transform;

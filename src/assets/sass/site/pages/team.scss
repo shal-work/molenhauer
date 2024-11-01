@@ -24,6 +24,9 @@
         letter-spacing: -1px;
         color: var(--orange);
         width: 30%;
+        @media (max-width: 1200px) {
+            width: auto;
+        }
     }
 
     &__row {
@@ -324,7 +327,6 @@
             // position: absolute;
         }
     }
-
     &__photo {
 
         max-width: 215px;
@@ -335,8 +337,6 @@
         overflow: hidden;
         margin-bottom: 16px;
     }
-
-
     &__img {
         width: 100%;
         height: 100%;
@@ -359,7 +359,6 @@
             margin-bottom: 16px;
         }
     }
-
     &__describe {
         font-size: calc(var(--vw) * 2 + 14px);
         font-weight: 400;
@@ -427,7 +426,7 @@
     max-height: none;
     width: 50%;
     // height: 64%;
-    padding: 1%;
+    padding: 20px;
 
     z-index: 22222;
     background-color: var(--contact);
