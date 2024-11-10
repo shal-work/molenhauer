@@ -1,116 +1,142 @@
-export default class carouselKeyPlayersLogo {
-    constructor() {
-        this.parent = document.querySelector('.key-players__logo-inner');
-        this.carouselWidth = window.getComputedStyle(this.parent.querySelector('.key-players__logo-carousel')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.widthWindow = window.getComputedStyle(this.parent.querySelector('.key-players__logo-wap')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.item = this.parent.querySelectorAll('.key-players__logo-item');
-        // this.width = window.getComputedStyle(this.item[0]).width.split('.')[0].replace(/\D/g, '');
-        this.slidesField = this.parent.querySelector('.key-players__logo-carousel');
-        this.dots = this.parent.querySelectorAll('.carousel__indicators li');
-        this.prev = this.parent.querySelector('.key-players__prev');
-        this.next = this.parent.querySelector('.key-players__next');
+import SliderClass, {CLASS_INDICATOR_ACTIVE } from './slider-class';
 
-        this.offset = 0 ;
-        this.slideIndex = 0;
-        // this.quantityInWindow = Number((this.widthWindow / this.width).toFixed());
-        this.quantityInWindow = 4;
+const CLASS_CONTROL_HIDE = 'key-players__control-disabled';
 
-    }
-
-    clearLinnear() {
-        let n = this.offset / this.width;
-        this.item.forEach(slide => {
-            slide.classList.remove('key-players__logo-item-line-zero');
-        });
-        if(this.quantityInWindow == 4) {
-            this.item[this.quantityInWindow - 1 + n].classList.add('key-players__logo-item-line-zero')
-        }
-    }
-
-    icoActive () {
-        let edge = this.width * (this.item.length - this.quantityInWindow);
-        if (+this.offset <= 0) {
-            this.prev.classList.remove('key-players__active');
-            this.next.classList.add('key-players__active');
-        } else if ((this.offset > 0) && (this.offset < edge)) {
-            this.prev.classList.add('key-players__active');
-            this.next.classList.add('key-players__active')
-        } else if (+this.offset >= +edge) {
-            this.prev.classList.add('key-players__active');
-            this.next.classList.remove('key-players__active');
-        }
-    }
-
-    clickNext() {
-        this.parent.querySelector('[data-slide="next"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.offset !== (+this.width * (this.item.length - this.quantityInWindow))) {
-                this.offset += +this.width;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            }
-            this.icoActive();
-            this.clearLinnear();
-        })
-    }
-    clickPrev() {
-        this.parent.querySelector('[data-slide="prev"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.offset !== 0) {
-                this.offset -= +this.width;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            }
-            this.icoActive();
-            this.clearLinnear();
-        });
-    }
-    indicators() {
-        const li = this.parent.querySelectorAll('.carousel__indicators li');
-        for (let i = 0 ; i < li.length; i++) {
-            li[i].addEventListener('click', (e) => {
-                const slideTo = e.target.getAttribute('data-slide-to');
-
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                this.dots.forEach(dot => dot.classList.remove('active'));
-                this.dots[this.slideIndex].classList.add('active');
-
-            });
-        }
-    }
+export default class CarouselKeyPlayersLogo extends SliderClass {
+	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
+        super(selector, inner, slides, items, btnsNext, btnsPrev, indicators);
+	}
     reset() {
-        this.carouselWidth = window.getComputedStyle(this.parent.querySelector('.key-players__logo-carousel')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.widthWindow = window.getComputedStyle(this.parent.querySelector('.key-players__logo-wap')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.item = this.parent.querySelectorAll('.key-players__logo-item');
-
-        // this.width = window.getComputedStyle(this.item[0]).width.split('.')[0].replace(/\D/g, '');
-
-        this.slideIndex = 0;
-        this.offset = 0;
-
-        this.width = this.widthWindow / this.quantityInWindow;
-        this.slidesField.style.transform = '';
-        this.item.forEach(slide => {
-            slide.style.width = this.width +'px';
-        });
-        this.icoActive();
-        this.clearLinnear();
-    }
-    render() {
-        const screenWidth = window.screen.width;
+		const screenWidth = window.screen.width;
         if (screenWidth >= 920) {
             this.quantityInWindow = 4;
         } else {
             this.quantityInWindow = 3;
         }
+		this.offset = 0;
+		this.slideIndex = 0;
+		this.direction = 'next';
+		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
         this.width = this.widthWindow / this.quantityInWindow;
-        this.item.forEach(slide => {
+        this.items.forEach(slide => {
             slide.style.width = this.width +'px';
         });
-        this.clickNext();
-        this.clickPrev();
-        this.indicators();
-        this.clearLinnear();
+
+		this.slides.style.transform = '';
+
+		try {
+            this.indicators.forEach(dot => dot.classList.remove(CLASS_INDICATOR_ACTIVE));
+			this.indicators[0].classList.add(CLASS_INDICATOR_ACTIVE);
+		} catch (error) {}
+
+		this.endIndex = this.items.length - this.quantityInWindow;
+		// сделаем невидимой левую кнопку
+		if (this.btnsPrev) {
+			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+		}
+		this.clearLinnear();
+	}
+    move() {
+		if (this.direction === 'next') {
+			this.slideIndex++;
+		} else {
+			this.slideIndex--;
+		}
+
+		if (this.slideIndex > this.endIndex) {
+			this.slideIndex = this.endIndex;
+			return
+		} if (this.slideIndex < 0) {
+			this.slideIndex = 0;
+			return
+		}
+		if(this.btnsPrev) {
+			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if(this.btnsNext) {
+			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+		}
+
+		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
+		this.offset += step;
+
+		this.slides.style.transform = `translateX(${this.offset}px)`;
+		this.updateControl();
+	    this.updateIndicators();
+		this.clearLinnear();
+	}
+	updateControl() {
+		if(this.btnsPrev) {
+			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if(this.btnsNext) {
+			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if (this.slideIndex >= this.endIndex) {
+			if(this.btnsNext) {
+				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+			}
+		}
+		if (this.slideIndex <= 0) {
+			if(this.btnsPrev) {
+				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+			}
+		}
+	}
+	swipe() {
+		let width = window.innerWidth;
+
+		let shiftX = 0;
+		this.inner.addEventListener('mousedown', (event) => {
+			shiftX = event.clientX;
+		});
+		this.inner.addEventListener('mouseup', (event) => {
+			this.direction = (event.clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(shiftX - event.clientX);
+
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		});
+		this.inner.addEventListener('touchstart', (event) => {
+			shiftX = event.touches[0].clientX;
+		}, {
+			passive: true
+		});
+		this.inner.addEventListener('touchmove', (event) => {
+			if (+width > 620) {
+				this.slides.style.transform = `translateX(${event.touches[0].clientX - shiftX + this.offset}px)`;
+			}
+		}, {
+			passive: true
+		});
+		this.inner.addEventListener('touchend', (event) => {
+			this.direction = (event.changedTouches[0].clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(event.changedTouches[0].clientX - shiftX);
+			this.slides.style.transform =  `translateX(${this.offset}px)`;
+			if (diffPos > this.width/3) {
+				console.log(this.slideIndex);
+				this.move();
+			}
+		}, {
+			passive: true
+		});
+	}
+
+	clearLinnear() {
+        let n = Math.abs(this.offset) / this.width;
+        this.items.forEach(slide => {
+            slide.classList.remove('key-players__logo-item-line-zero');
+        });
+        if(this.quantityInWindow == 4) {
+            this.items[this.quantityInWindow - 1 + n].classList.add('key-players__logo-item-line-zero')
+        }
     }
+	render() {
+		this.reset();
+		this.clickIndicators();
+		this.clickNext();
+		this.clickPrev();
+		this.swipe();
+	}
 }

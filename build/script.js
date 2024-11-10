@@ -121,56 +121,6 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.triad__grid.accordion').
 
 /***/ }),
 
-/***/ "./src/js/lib/components/carousel-experience-class.js":
-/*!************************************************************!*\
-  !*** ./src/js/lib/components/carousel-experience-class.js ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CarouselExperience; });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
-
-
-
-class CarouselExperience {
-    constructor() {
-        this.offset = 0;
-        this.slideIndex = 0;
-        this.experience = document.querySelector('.experience');
-        this.dots = this.experience.querySelectorAll('.carousel__indicators li');
-        this.slidesField = this.experience.querySelector('.experience__content');
-        this.sliderId = this.experience.getAttribute('id');
-        this.indicators = this.experience.querySelectorAll(`#${this.sliderId} .carousel__indicators li`);
-    }
-    reset() {
-        this.slidesField.style.transform = '';
-        this.dots.forEach(dot => dot.classList.remove('active'));
-        this.dots[0].classList.add('active');
-    }
-    render() {
-
-        for (let i = 0; i < this.indicators.length; i++) {
-            this.indicators[i].addEventListener('click', (e) => {
-                this.reset();
-                this.whidthItem = window.getComputedStyle(this.experience.querySelector('.experience__item')).width.split('.')[0].replace(/\D/g, '');
-                const slideTo = e.target.getAttribute('data-slide-to');
-                this.slideIndex = slideTo;
-                this.offset = +this.whidthItem * slideTo;
-
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                this.dots.forEach(dot => dot.classList.remove('active'));
-                this.dots[this.slideIndex].classList.add('active');
-            });
-        }
-    }
-}
-
-
-/***/ }),
-
 /***/ "./src/js/lib/components/carousel-key-players-logo-class.js":
 /*!******************************************************************!*\
   !*** ./src/js/lib/components/carousel-key-players-logo-class.js ***!
@@ -180,270 +130,149 @@ class CarouselExperience {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return carouselKeyPlayersLogo; });
-class carouselKeyPlayersLogo {
-    constructor() {
-        this.parent = document.querySelector('.key-players__logo-inner');
-        this.carouselWidth = window.getComputedStyle(this.parent.querySelector('.key-players__logo-carousel')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.widthWindow = window.getComputedStyle(this.parent.querySelector('.key-players__logo-wap')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.item = this.parent.querySelectorAll('.key-players__logo-item');
-        // this.width = window.getComputedStyle(this.item[0]).width.split('.')[0].replace(/\D/g, '');
-        this.slidesField = this.parent.querySelector('.key-players__logo-carousel');
-        this.dots = this.parent.querySelectorAll('.carousel__indicators li');
-        this.prev = this.parent.querySelector('.key-players__prev');
-        this.next = this.parent.querySelector('.key-players__next');
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CarouselKeyPlayersLogo; });
+/* harmony import */ var _slider_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider-class */ "./src/js/lib/components/slider-class.js");
 
-        this.offset = 0 ;
-        this.slideIndex = 0;
-        // this.quantityInWindow = Number((this.widthWindow / this.width).toFixed());
-        this.quantityInWindow = 4;
 
-    }
+const CLASS_CONTROL_HIDE = 'key-players__control-disabled';
 
-    clearLinnear() {
-        let n = this.offset / this.width;
-        this.item.forEach(slide => {
-            slide.classList.remove('key-players__logo-item-line-zero');
-        });
-        if(this.quantityInWindow == 4) {
-            this.item[this.quantityInWindow - 1 + n].classList.add('key-players__logo-item-line-zero')
-        }
-    }
-
-    icoActive () {
-        let edge = this.width * (this.item.length - this.quantityInWindow);
-        if (+this.offset <= 0) {
-            this.prev.classList.remove('key-players__active');
-            this.next.classList.add('key-players__active');
-        } else if ((this.offset > 0) && (this.offset < edge)) {
-            this.prev.classList.add('key-players__active');
-            this.next.classList.add('key-players__active')
-        } else if (+this.offset >= +edge) {
-            this.prev.classList.add('key-players__active');
-            this.next.classList.remove('key-players__active');
-        }
-    }
-
-    clickNext() {
-        this.parent.querySelector('[data-slide="next"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.offset !== (+this.width * (this.item.length - this.quantityInWindow))) {
-                this.offset += +this.width;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            }
-            this.icoActive();
-            this.clearLinnear();
-        })
-    }
-    clickPrev() {
-        this.parent.querySelector('[data-slide="prev"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.offset !== 0) {
-                this.offset -= +this.width;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            }
-            this.icoActive();
-            this.clearLinnear();
-        });
-    }
-    indicators() {
-        const li = this.parent.querySelectorAll('.carousel__indicators li');
-        for (let i = 0 ; i < li.length; i++) {
-            li[i].addEventListener('click', (e) => {
-                const slideTo = e.target.getAttribute('data-slide-to');
-
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                this.dots.forEach(dot => dot.classList.remove('active'));
-                this.dots[this.slideIndex].classList.add('active');
-
-            });
-        }
-    }
+class CarouselKeyPlayersLogo extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
+        super(selector, inner, slides, items, btnsNext, btnsPrev, indicators);
+	}
     reset() {
-        this.carouselWidth = window.getComputedStyle(this.parent.querySelector('.key-players__logo-carousel')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.widthWindow = window.getComputedStyle(this.parent.querySelector('.key-players__logo-wap')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.item = this.parent.querySelectorAll('.key-players__logo-item');
-
-        // this.width = window.getComputedStyle(this.item[0]).width.split('.')[0].replace(/\D/g, '');
-
-        this.slideIndex = 0;
-        this.offset = 0;
-
-        this.width = this.widthWindow / this.quantityInWindow;
-        this.slidesField.style.transform = '';
-        this.item.forEach(slide => {
-            slide.style.width = this.width +'px';
-        });
-        this.icoActive();
-        this.clearLinnear();
-    }
-    render() {
-        const screenWidth = window.screen.width;
+		const screenWidth = window.screen.width;
         if (screenWidth >= 920) {
             this.quantityInWindow = 4;
         } else {
             this.quantityInWindow = 3;
         }
+		this.offset = 0;
+		this.slideIndex = 0;
+		this.direction = 'next';
+		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
         this.width = this.widthWindow / this.quantityInWindow;
-        this.item.forEach(slide => {
-            slide.style.width = this.width +'px';
-        });
-        this.clickNext();
-        this.clickPrev();
-        this.indicators();
-        this.clearLinnear();
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/js/lib/components/carousel-key-players-say-class.js":
-/*!*****************************************************************!*\
-  !*** ./src/js/lib/components/carousel-key-players-say-class.js ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return carouselKeyPlayersSay; });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
-
-
-
-class carouselKeyPlayersSay {
-    constructor() {
-        this.parent = document.querySelector('.key-players__clients-say');
-        this.width = window.getComputedStyle(this.parent.querySelector('.carousel-inner')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.slidesField = this.parent.querySelector('.carousel-slides');
-        this.slides = this.parent.querySelectorAll('.carousel-item');
-        this.dots = this.parent.querySelectorAll('.carousel__indicators li');
-
-        this.logo = document.querySelectorAll('.key-players__logo-item');
-
-        this.offset = 0;
-        this.slideIndex = 0;
-    }
-
-    initOfset(ind) {
-        switch (ind) {
-            case 'next':
-                if (this.offset == (+this.width.replace(/\D/g, '') * (this.slides.length - 1))) {
-                    this.offset = 0;
-                } else {
-                    this.offset += +this.width.replace(/\D/g, '');
-                }
-                break;
-            default:
-                if (this.offset == 0) {
-                    this.offset = +this.width.replace(/\D/g, '') * (this.slides.length - 1);
-                } else {
-                    this.offset -= +this.width.replace(/\D/g, '');
-                }
-                break;
-        }
-    }
-
-    remove() {
-        this.dots.forEach(dot => dot.classList.remove('active'));
-    }
-    funAddClass(i=0) {
-        this.dots[i].classList.add('active');
-    }
-
-    index(ind) {
-        switch (ind) {
-            case 'next':
-                if (this.slideIndex == this.slides.length - 1) {
-                    this.slideIndex = 0;
-                } else {
-                    this.slideIndex++;
-                }
-                break;
-            default:
-
-                if (this.slideIndex == 0) {
-                    this.slideIndex = this.slides.length - 1;
-                } else {
-                    this.slideIndex--;
-                }
-                break;
-        }
-    }
-    clickNext() {
-
-        this.parent.querySelector('[data-slide="next"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.initOfset("next");
-            this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            this.index("next");
-            this.remove();
-            this.funAddClass(+this.slideIndex);
-        })
-    }
-
-    clickPrev() {
-        this.parent.querySelector('[data-slide="prev"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.initOfset("prev");
-            this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            this.index("prev");
-            this.remove();
-            this.funAddClass(+this.slideIndex);
-        });
-    }
-    indicators() {
-        const li = this.parent.querySelectorAll('.carousel__indicators li');
-        for (let i = 0 ; i < li.length; i++) {
-            li[i].addEventListener('click', (e) => {
-                const slideTo = e.target.getAttribute('data-slide-to');
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                this.remove();
-                this.funAddClass(+this.slideIndex);
-            });
-        }
-    }
-    clickLogo() {
-        for (let i = 0; i < this.logo.length; i++) {
-            this.logo[i].addEventListener('click', (e) => {
-                this.reset();
-            })
-        }
-    }
-    reset() {
-        //чистим временные данные у слайдера
-        // carousel-slides width: 500%; transform: translateX(-1440px);
-        // carousel-item width: 1440px;
-        this.width = window.getComputedStyle(this.parent.querySelector('.carousel-inner')).width.split('.')[0].replace(/\D/g, '');
-
-        this.slidesField.style.transform = '';
-        this.slidesField.style.width = 100 * this.slides.length + '%';
-        this.slides.forEach(slide => {
+        this.items.forEach(slide => {
             slide.style.width = this.width +'px';
         });
 
-        this.offset = 0;
-        this.slideIndex = 0;
-        this.remove();
-        this.funAddClass();
-        this.clickLogo();
-    }
-    render() {
-        this.slidesField.style.width = 100 * this.slides.length + '%';
-        this.slides.forEach(slide => {
-            slide.style.width = this.width + 'px';
+		this.slides.style.transform = '';
+
+		try {
+            this.indicators.forEach(dot => dot.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_INDICATOR_ACTIVE"]));
+			this.indicators[0].classList.add(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_INDICATOR_ACTIVE"]);
+		} catch (error) {}
+
+		this.endIndex = this.items.length - this.quantityInWindow;
+		// сделаем невидимой левую кнопку
+		if (this.btnsPrev) {
+			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+		}
+		this.clearLinnear();
+	}
+    move() {
+		if (this.direction === 'next') {
+			this.slideIndex++;
+		} else {
+			this.slideIndex--;
+		}
+
+		if (this.slideIndex > this.endIndex) {
+			this.slideIndex = this.endIndex;
+			return
+		} if (this.slideIndex < 0) {
+			this.slideIndex = 0;
+			return
+		}
+		if(this.btnsPrev) {
+			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if(this.btnsNext) {
+			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+		}
+
+		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
+		this.offset += step;
+
+		this.slides.style.transform = `translateX(${this.offset}px)`;
+		this.updateControl();
+	    this.updateIndicators();
+		this.clearLinnear();
+	}
+	updateControl() {
+		if(this.btnsPrev) {
+			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if(this.btnsNext) {
+			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if (this.slideIndex >= this.endIndex) {
+			if(this.btnsNext) {
+				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+			}
+		}
+		if (this.slideIndex <= 0) {
+			if(this.btnsPrev) {
+				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+			}
+		}
+	}
+	swipe() {
+		let width = window.innerWidth;
+
+		let shiftX = 0;
+		this.inner.addEventListener('mousedown', (event) => {
+			shiftX = event.clientX;
+		});
+		this.inner.addEventListener('mouseup', (event) => {
+			this.direction = (event.clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(shiftX - event.clientX);
+
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		});
+		this.inner.addEventListener('touchstart', (event) => {
+			shiftX = event.touches[0].clientX;
+		}, {
+			passive: true
+		});
+		this.inner.addEventListener('touchmove', (event) => {
+			if (+width > 620) {
+				this.slides.style.transform = `translateX(${event.touches[0].clientX - shiftX + this.offset}px)`;
+			}
+		}, {
+			passive: true
+		});
+		this.inner.addEventListener('touchend', (event) => {
+			this.direction = (event.changedTouches[0].clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(event.changedTouches[0].clientX - shiftX);
+			this.slides.style.transform =  `translateX(${this.offset}px)`;
+			if (diffPos > this.width/3) {
+				console.log(this.slideIndex);
+				this.move();
+			}
+		}, {
+			passive: true
+		});
+	}
+
+	clearLinnear() {
+        let n = Math.abs(this.offset) / this.width;
+        this.items.forEach(slide => {
+            slide.classList.remove('key-players__logo-item-line-zero');
         });
-        this.clickNext();
-        this.clickPrev();
-        this.indicators();
-        this.clickLogo();
+        if(this.quantityInWindow == 4) {
+            this.items[this.quantityInWindow - 1 + n].classList.add('key-players__logo-item-line-zero')
+        }
     }
+	render() {
+		this.reset();
+		this.clickIndicators();
+		this.clickNext();
+		this.clickPrev();
+		this.swipe();
+	}
 }
 
 
@@ -458,159 +287,155 @@ class carouselKeyPlayersSay {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return carouselKnowHow; });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CarouselKnowHow; });
+/* harmony import */ var _slider_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider-class */ "./src/js/lib/components/slider-class.js");
 
 
+const CLASS_CONTROL_DISABLED = 'know-how__control-disabled';
 
+class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
+        super(selector, inner, slides, items, btnsNext, btnsPrev, indicators);
+        this.iconNext = this.carousel.querySelector('.know-how__next-icon');
+        this.iconPrev = this.carousel.querySelector('.know-how__prev-icon');
+        this.knowHow = this.carousel.querySelectorAll('.know-how__item');
+        this.howNum = this.carousel.querySelectorAll('.know-how__number');
+        this.howSubtitle = this.carousel.querySelectorAll('.know-how__subtitle');
+	}
+	reset() {
+		this.offset = 0;
+		this.slideIndex = 0;
+		this.direction = 'next';
+		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
+		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		this.width = this.widthWindow / this.quantityInWindow;
+		this.slides.style.transform = '';
+		this.indicators.forEach(dot => dot.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_INDICATOR_ACTIVE"]));
+		try {
+			this.indicators[0].classList.add(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_INDICATOR_ACTIVE"]);
+		} catch (error) {}
 
-class carouselKnowHow {
-    constructor() {
-        this.parent = document.querySelector('.know-how');
-        this.width = window.getComputedStyle(this.parent.querySelector('.carousel-inner')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.slidesField = this.parent.querySelector('.carousel-slides');
-        this.slides = this.parent.querySelectorAll('.carousel-item');
-        this.dots = this.parent.querySelectorAll('.carousel__indicators li');
-        this.knowHow = this.parent.querySelectorAll('.know-how__item');
-        this.howNum = this.parent.querySelectorAll('.know-how__number');
-        this.howSubtitle = this.parent.querySelectorAll('.know-how__subtitle');
+		this.endIndex = this.items.length - this.quantityInWindow;
+		// сделаем невидимой левую кнопку
+		if (this.btnsPrev) {
+			this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
+		}
+	}
+    swipe() {
+		let shiftX = 0;
+		this.slides.addEventListener('mousedown', (event) => {
+			shiftX = event.clientX;
+		});
+		this.slides.addEventListener('mouseup', (event) => {
+			this.direction = (event.clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(shiftX - event.clientX);
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		});
+		this.inner.addEventListener('touchstart', (event) => {
+			shiftX = event.touches[0].clientX;
+        }, {
+            passive: true
+        });
 
-        this.offset = 0;
-        this.slideIndex = 0;
+		this.inner.addEventListener('touchmove', (event) => {
+			this.slides.style.transform = `translateX(${event.touches[0].clientX - shiftX + this.offset}px)`;
+		}, {
+			passive: true
+		});
+
+		this.inner.addEventListener('touchend', (event) => {
+			this.direction = (event.changedTouches[0].clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(event.changedTouches[0].clientX - shiftX);
+			this.slides.style.transform =  `translateX(${this.offset}px)`;
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		}, {
+			passive: true
+		});
+	}
+	move() {
+		if (this.direction === 'next') {
+			this.slideIndex++;
+		} else {
+			this.slideIndex--;
+		}
+
+		if (this.slideIndex > this.endIndex) {
+			this.slideIndex = this.endIndex;
+			return
+		} if (this.slideIndex < 0) {
+			this.slideIndex = 0;
+			return
+		}
+		if(this.btnsPrev) {
+			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
+		}
+		if(this.btnsNext) {
+			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
+		}
+
+		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
+		this.offset += step;
+		this.slides.style.transform = `translateX(${this.offset}px)`;
+		this.updateControl();
+	    this.updateIndicators();
+        this.remove();
+        this.funAddClass(this.slideIndex);
+	}
+    updateControl() {
+		if(this.btnsPrev) {
+			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
+  		}
+		if(this.btnsNext) {
+			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
+		}
+		if (this.slideIndex >= this.endIndex) {
+			if(this.btnsNext) {
+				this.iconNext.classList.add(CLASS_CONTROL_DISABLED);
+			}
+		}
+		if (this.slideIndex <= 0) {
+			if(this.btnsPrev) {
+				this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
+			}
+		}
+	}
+
+    funAddClass(i=0) {
+        this.knowHow[i].classList.add('know-how__width');
+        this.howNum[i].classList.add('know-how__active');
+        this.howNum[i].classList.add('know-how__number-active');
+        this.howSubtitle[i].classList.add('know-how__active');
     }
-
-    initOfset(ind) {
-        switch (ind) {
-            case 'next':
-                if (this.offset == (+this.width.replace(/\D/g, '') * (this.slides.length - 1))) {
-                    this.offset = 0;
-                } else {
-                    this.offset += +this.width.replace(/\D/g, '');
-                }
-                break;
-            default:
-                if (this.offset == 0) {
-                    this.offset = +this.width.replace(/\D/g, '') * (this.slides.length - 1);
-                } else {
-                    this.offset -= +this.width.replace(/\D/g, '');
-                }
-                break;
-        }
-    }
-
     remove() {
         //для know-how__item
         this.knowHow.forEach(item => item.classList.remove('know-how__width'));
         this.howNum.forEach(item => item.classList.remove('know-how__active'));
         this.howNum.forEach(item => item.classList.remove('know-how__number-active'));
         this.howSubtitle.forEach(item => item.classList.remove('know-how__active'));
-        this.dots.forEach(dot => dot.classList.remove('active'));
-    }
-    funAddClass(i=0) {
-        this.knowHow[i].classList.add('know-how__width');
-        this.howNum[i].classList.add('know-how__active');
-        this.howNum[i].classList.add('know-how__number-active');
-        this.howSubtitle[i].classList.add('know-how__active');
-        this.dots[i].classList.add('active');
-    }
-
-    index(ind) {
-        switch (ind) {
-            case 'next':
-                if (this.slideIndex == this.slides.length - 1) {
-                    this.slideIndex = 0;
-                } else {
-                    this.slideIndex++;
-                }
-                break;
-            default:
-
-                if (this.slideIndex == 0) {
-                    this.slideIndex = this.slides.length - 1;
-                } else {
-                    this.slideIndex--;
-                }
-                break;
-        }
-    }
-    clickNext() {
-        this.parent.querySelector('[data-slide="next"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.initOfset("next");
-            this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            this.index("next");
-            this.remove();
-            this.funAddClass(+this.slideIndex);
-        })
-    }
-
-    clickPrev() {
-        this.parent.querySelector('[data-slide="prev"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.initOfset("prev");
-            this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            this.index("prev");
-            this.remove();
-            this.funAddClass(+this.slideIndex);
-        });
-    }
-    indicators() {
-        const li = this.parent.querySelectorAll('.carousel__indicators li');
-        for (let i = 0 ; i < li.length; i++) {
-            li[i].addEventListener('click', (e) => {
-                const slideTo = e.target.getAttribute('data-slide-to');
-
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                this.remove();
-                this.funAddClass(+this.slideIndex);
-            });
-        }
     }
     frame() {
         for (let i = 0; i < this.knowHow.length; i++) {
             this.knowHow[i].addEventListener('click', (e) => {
                 const slideTo = this.knowHow[i].getAttribute('data-tap');
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                //для know-how__item
+                this.moveTo(slideTo);
                 this.remove();
-                // this.parent.querySelector(`[data-tap="${+this.slideIndex}"]`).classList.add('know-how__width');
-                // this.dots[this.slideIndex].classList.add('active');
-                this.funAddClass(+this.slideIndex);
+                this.funAddClass(slideTo);
             })
         }
     }
-    reset() {
-        //чистим временные данные у слайдера
-        // carousel-slides width: 500%; transform: translateX(-1440px);
-        // carousel-item width: 1440px;
-        // this.width = window.getComputedStyle(this.parent.querySelector('.carousel-inner')).width.split('.')[0].replace(/\D/g, '');
-        this.slidesField.style.width = '';
-        this.slidesField.style.transform = '';
-        this.slides.forEach(slide => {
-            slide.style.width = '';
-        });
-        this.dots.forEach(dot => dot.classList.remove('active'));
-        this.dots[0].classList.add('active');
-        this.offset = 0;
-        this.slideIndex = 0;
-        this.remove();
-        this.funAddClass()
-    }
+
     render() {
-        this.slidesField.style.width = 100 * this.slides.length + '%';
-        this.slides.forEach(slide => {
-            slide.style.width = this.width + 'px';
-        });
-        this.clickNext();
-        this.clickPrev();
-        this.indicators();
+		this.reset();
+		this.clickIndicators();
+		this.clickNext();
+		this.clickPrev();
+		this.swipe();
         this.frame();
-    }
+	}
 }
 
 
@@ -637,88 +462,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.dropdown = function() {
         });
     }
 };
-
-
-/***/ }),
-
-/***/ "./src/js/lib/components/observer.js":
-/*!*******************************************!*\
-  !*** ./src/js/lib/components/observer.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-const options = {
-	rootMargin: '-10px'
-};
-// Создать наблюдателя
-const observer = new IntersectionObserver(entries => {
-	// перебор записей
-	entries.forEach(entry => {
-		let containerInner = entry.target.querySelectorAll('[data-animated]');
-		if (entry.isIntersecting ) {
-			containerInner.forEach(function(item) {
-				let setaDataAimated = item.dataset.animated;
-				item.classList.add(setaDataAimated);
-			})
-			return; // если класс добавлен, продолжать уже не надо
-		}
-		containerInner.forEach(function(item) {
-			let setaDataAimated = item.dataset.animated;
-			item.classList.remove(setaDataAimated);
-		});
-	});
-}, options);
-
-// Сообщить наблюдателю, какие элементы следует отслеживать
-try {
-	observer.observe(document.querySelector('.observer-title'));
-	observer.observe(document.querySelector('.observer-home-advantage'));
-	observer.observe(document.querySelector('.observer-leiba'));
-	observer.observe(document.querySelector('.observer-home-servise'));
-	observer.observe(document.querySelector('.observer-list'));
-	observer.observe(document.querySelector('.observer-img'));
-} catch (error) {}
-try {
-	observer.observe(document.querySelector('.observer-about-advantage'));
-	observer.observe(document.querySelector('.observer-about-servise'));
-	observer.observe(document.querySelector('.observer-about-title'));
-} catch (error) {}
-try {
-	observer.observe(document.querySelector('.observer-servise1'));
-	observer.observe(document.querySelector('.observer-servise2'));
-	observer.observe(document.querySelector('.observer-servise3'));
-	observer.observe(document.querySelector('.observer-servise4'));
-} catch (error) {}
-try {
-	observer.observe(document.querySelector('.observer-teams'));
-	observer.observe(document.querySelector('.observer-teams-servise'));
-} catch (error) {}
-try {
-	observer.observe(document.querySelector('.observer-portofolio-leiba1'));
-	observer.observe(document.querySelector('.observer-portofolio-leiba2'));
-	observer.observe(document.querySelector('.observer-portofolio-leiba3'));
-	observer.observe(document.querySelector('.observer-portofolio-leiba4'));
-	observer.observe(document.querySelector('.observer-portofolio-servise'));
-} catch (error) {}
-try {
-	observer.observe(document.querySelector('.observer-details-img'));
-} catch (error) {}
-
-
-
-// Пример записи:
-// в html:
-//<div class="observer" id="observer">
-//    <div class="container-inner" data-animated = "fadeInUp"></div>
-//</div>
-// в js:
-// try {
-// 	observer.observe(document.querySelector('.observer'));
-// } catch (error) {}
-// // или через id
-// observer.observe(document.getElementById('observer'));
-// observer.observe(document.querySelector('#observer'));
 
 
 /***/ }),
@@ -751,6 +494,198 @@ const scrolling = (upSelector) => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (scrolling);
+
+
+/***/ }),
+
+/***/ "./src/js/lib/components/slider-class.js":
+/*!***********************************************!*\
+  !*** ./src/js/lib/components/slider-class.js ***!
+  \***********************************************/
+/*! exports provided: CLASS_CONTROL_HIDE, CLASS_INDICATOR_ACTIVE, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_CONTROL_HIDE", function() { return CLASS_CONTROL_HIDE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_INDICATOR_ACTIVE", function() { return CLASS_INDICATOR_ACTIVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SliderClass; });
+
+
+const CLASS_CONTROL_HIDE = 'slider-control-hide';
+const CLASS_INDICATOR_ACTIVE = 'active';
+
+class SliderClass {
+	constructor({ selector = '', inner = '', slides = '', items = '', btnsNext = '', btnsPrev = '', indicators = '' } = {}) {
+
+		this.carousel = document.querySelector(selector);
+		this.inner = this.carousel.querySelector(inner); //experience__content
+		this.slides = this.carousel.querySelector(slides); //experience__content
+		if (items !== '') this.items = this.carousel.querySelectorAll(items);//experience__item
+		if (btnsNext !== '') this.btnsNext = this.carousel.querySelector(btnsNext);
+		if (btnsPrev !== '') this.btnsPrev = this.carousel.querySelector(btnsPrev);
+		if (indicators !== '') this.indicators = this.carousel.querySelectorAll(indicators); //dot и .carousel__indicators li`
+
+		this.offset = 0;
+		this.slideIndex = 0;
+		this.quantityInWindow = 0;
+		this.widthWindow = 0;
+		this.width = 0;
+		this.endIndex = 0;
+		this.direction = 'next';
+	}
+
+	reset() {
+		this.offset = 0;
+		this.slideIndex = 0;
+		this.direction = 'next';
+		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
+		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		this.width = this.widthWindow / this.quantityInWindow;
+		this.slides.style.transform = '';
+
+		try {
+			this.indicators.forEach(dot => dot.classList.remove(CLASS_INDICATOR_ACTIVE));
+			this.indicators[0].classList.add(CLASS_INDICATOR_ACTIVE);
+		} catch (error) {}
+
+		this.endIndex = this.items.length - this.quantityInWindow;
+		// сделаем невидимой левую кнопку
+		if (this.btnsPrev) {
+			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+		}
+	}
+	swipe() {
+		let shiftX = 0;
+		this.inner.addEventListener('mousedown', (event) => {
+			shiftX = event.clientX;
+		});
+		this.inner.addEventListener('mouseup', (event) => {
+			this.direction = (event.clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(shiftX - event.clientX);
+
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		});
+		this.inner.addEventListener('touchstart', (event) => {
+			shiftX = event.touches[0].clientX;
+        }, {
+            passive: true
+        });
+		this.inner.addEventListener('touchmove', (event) => {
+			this.slides.style.transform = `translateX(${event.touches[0].clientX - shiftX + this.offset}px)`;
+		}, {
+			passive: true
+		});
+		this.inner.addEventListener('touchend', (event) => {
+			this.direction = (event.changedTouches[0].clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(event.changedTouches[0].clientX - shiftX);
+			this.slides.style.transform =  `translateX(${this.offset}px)`;
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		}, {
+			passive: true
+		});
+	}
+	moveTo(index) {
+		this.slideIndex = index;
+		this.offset = -(+this.width) * index;
+		this.slides.style.transform = `translateX(${this.offset}px)`;
+		this.indicators.forEach(dot => dot.classList.remove(CLASS_INDICATOR_ACTIVE));
+		this.indicators[this.slideIndex].classList.add(CLASS_INDICATOR_ACTIVE);
+		this.updateControl();
+		this.updateIndicators();
+	}
+	move() {
+		if (this.direction === 'next') {
+			this.slideIndex++;
+		} else {
+			this.slideIndex--;
+		}
+		if (this.slideIndex > this.endIndex) {
+			this.slideIndex = this.endIndex;
+			return
+		} if (this.slideIndex < 0) {
+			this.slideIndex = 0;
+			return
+		}
+		if(this.btnsPrev) {
+			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if(this.btnsNext) {
+			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+		}
+
+		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
+		this.offset += step;
+
+		this.slides.style.transform = `translateX(${this.offset}px)`;
+		this.updateControl();
+	    this.updateIndicators();
+	}
+	clickIndicators() {
+		for (let i = 0; i < this.indicators.length; i++) {
+			this.indicators[i].addEventListener('click', (e) => {
+				const slideTo = e.target.getAttribute('data-slide-to');
+				this.moveTo(slideTo);
+			});
+		}
+	}
+	updateIndicators() {
+		if (!this.indicators.length) {
+			return;
+		}
+		this.indicators.forEach(dot => dot.classList.remove(CLASS_INDICATOR_ACTIVE));
+		this.indicators[this.slideIndex].classList.add(CLASS_INDICATOR_ACTIVE);
+	}
+	updateControl() {
+		if(this.btnsPrev) {
+			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if(this.btnsNext) {
+			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+		}
+		if (this.slideIndex >= this.endIndex) {
+			// this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+			if(this.btnsNext) {
+				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+			}
+		}
+		if (this.slideIndex <= 0) {
+			// this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+			if(this.btnsPrev) {
+				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+			}
+		}
+	}
+	clickNext() {
+		if(this.btnsNext) {
+			this.btnsNext.addEventListener('click', (e) => {
+				e.preventDefault();
+				this.direction = e.target.dataset.slide; //если data-slide
+				this.move();
+			})
+		}
+	}
+	clickPrev() {
+		if(this.btnsPrev){
+			this.btnsPrev.addEventListener('click', (e) => {
+				e.preventDefault();
+				this.direction = e.target.dataset.slide; //если data-slide
+				this.move();
+			});
+		}
+	}
+	render() {
+		this.reset();
+		this.clickIndicators();
+		this.clickNext();
+		this.clickPrev();
+		this.swipe();
+	}
+}
 
 
 /***/ }),
@@ -810,9 +745,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
 /* harmony import */ var _modules_effects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/effects */ "./src/js/lib/modules/effects.js");
 /* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
-/* harmony import */ var _components_observer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/observer */ "./src/js/lib/components/observer.js");
-/* harmony import */ var _components_observer__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_observer__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_accordion_triad__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/accordion-triad */ "./src/js/lib/components/accordion-triad.js");
+/* harmony import */ var _components_accordion_triad__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/accordion-triad */ "./src/js/lib/components/accordion-triad.js");
 
  //show, hide, toggle
 //addClass, removeClass, toggleClass
@@ -821,7 +754,7 @@ __webpack_require__.r(__webpack_exports__);
 //html, eq, index, find, siblings
 //
 
-
+// import './components/observer';
 
 
 
@@ -1310,15 +1243,15 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function(handler
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_carousel_experience_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/carousel-experience-class */ "./src/js/lib/components/carousel-experience-class.js");
-/* harmony import */ var _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/carousel-know-how-class */ "./src/js/lib/components/carousel-know-how-class.js");
-/* harmony import */ var _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/carousel-key-players-logo-class */ "./src/js/lib/components/carousel-key-players-logo-class.js");
-/* harmony import */ var _components_carousel_key_players_say_class__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/carousel-key-players-say-class */ "./src/js/lib/components/carousel-key-players-say-class.js");
-/* harmony import */ var _components_scrolling__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/scrolling */ "./src/js/lib/components/scrolling.js");
+/* harmony import */ var _components_scrolling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/scrolling */ "./src/js/lib/components/scrolling.js");
+/* harmony import */ var _components_slider_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/slider-class */ "./src/js/lib/components/slider-class.js");
+/* harmony import */ var _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/carousel-know-how-class */ "./src/js/lib/components/carousel-know-how-class.js");
+/* harmony import */ var _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/carousel-key-players-logo-class */ "./src/js/lib/components/carousel-key-players-logo-class.js");
 
 
 
 
+// import CarouselExperience from '../components/carousel-experience-class';
 
 // работа с бургером
 // Добавляем класс active, для замены бургера на крестик (это в css)
@@ -1352,7 +1285,7 @@ $.prototype.dropdownFadeLeft = function() {
     }
 };
 $('.navbar-toggle').dropdownFadeLeft();
-// удаляем меню после нажатия
+// удаляем меню после click
 $('.collapse').on('click', function() {
     if (window.getComputedStyle(document.querySelector('.navbar-toggle')).display != 'none') {
         let item= document.querySelectorAll('.collapse');
@@ -1365,7 +1298,6 @@ $('.collapse').on('click', function() {
 // для experience
 let isMake = true;
 $.prototype.showPicture = function() {
-
     for (let i = 0; i < this.length; i++) {
         const howNum = this[i].querySelectorAll('.experience__number');
         $(this[i]).click(() => {
@@ -1382,14 +1314,54 @@ $.prototype.showPicture = function() {
         });
     }
 };
-// работа с навигацией якорей
-
 $('.experience__item').showPicture();
 
-let widthWidow = 0;
-const cKnowHow = new _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_1__["default"]();
-const cKeyPlayersLogo= new _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_2__["default"]();
-const cKeyPlayersSay = new _components_carousel_key_players_say_class__WEBPACK_IMPORTED_MODULE_3__["default"]();
+// Carousel
+const cExperience = new _components_slider_class__WEBPACK_IMPORTED_MODULE_1__["default"] ({
+    selector: '.experience',
+    inner: '.experience__inner',
+    slides: '.experience__content',
+    items: '.experience__item',
+    btnsNext: '',
+    btnsPrev: '',
+    indicators: '.carousel__indicators li'
+  }
+);
+const cKnowHow = new _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_2__["default"] (
+    {
+        selector: '.know-how',
+        inner: '.know-how__exhibition',
+        slides: '.know-how__exhibition-slides',
+        items: '.know-how__exhibition-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+const cKeyPlayersLogo = new _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_3__["default"] (
+    {
+        selector: '.key-players__logo-inner',
+        inner: '.key-players__logo-wap',
+        slides: '.key-players__logo-carousel',
+        items: '.key-players__logo-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+const cKeyPlayersSay = new _components_slider_class__WEBPACK_IMPORTED_MODULE_1__["default"] (
+    {
+        selector: '.key-players__clients-say',
+        inner: '.key-players__content-say',
+        slides: '.key-players__content-slides',
+        items: '.key-players__content-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+
+
 window.addEventListener('DOMContentLoaded', (e) => {
     //делаем актуальный размер фона для правильной работа с навигацией якорей
     elementHaight();
@@ -1405,30 +1377,28 @@ window.addEventListener('DOMContentLoaded', (e) => {
                     block: 'start'
                 })
             }
-
         })
     }
     widthWidow = e.currentTarget.innerWidth;
 
-    const cExperience = new _components_carousel_experience_class__WEBPACK_IMPORTED_MODULE_0__["default"]();
     cExperience.render();
     cKnowHow.render();
     cKeyPlayersLogo.render();
     cKeyPlayersSay.render();
 });
 
+let widthWidow = 0;
 window.addEventListener('resize', (e) => {
     if (widthWidow !== e.target.outerWidth) {
         // делаем актуальный размер фона
         elementHaight();
         widthWidow = e.currentTarget.innerWidth;
+        cExperience.reset();
         cKnowHow.reset();
         cKeyPlayersLogo.reset();
         cKeyPlayersSay.reset();
     }
 });
-
-
 
 // работа с навигацией якорей
 function elementHaight() {
@@ -1445,9 +1415,7 @@ $('.up-ico').on('click', function() {
         block: 'start'
     });
 });
-
-
-Object(_components_scrolling__WEBPACK_IMPORTED_MODULE_4__["default"])('.pageup');
+Object(_components_scrolling__WEBPACK_IMPORTED_MODULE_0__["default"])('.pageup');
 
 $('.pageup .up-ico').on('click', function() {
     const elem = document.querySelector('.header');
@@ -1459,7 +1427,6 @@ $('.pageup .up-ico').on('click', function() {
 });
 
 let isModal = false;
-let isBlock = false;
 $.prototype.showPerson = function() {
 const text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem mollitia sequi impedit obcaecati ad! Quis assumenda itaque, eligendi, optio rerum cumque ipsum, nam eum veniam incidunt vero consequuntur iste blanditiis!"
 

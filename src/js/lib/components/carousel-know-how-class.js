@@ -1,152 +1,148 @@
-import $ from '../core';
+import SliderClass,  {CLASS_INDICATOR_ACTIVE} from './slider-class';
 
+const CLASS_CONTROL_DISABLED = 'know-how__control-disabled';
 
+export default class CarouselKnowHow extends SliderClass {
+	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
+        super(selector, inner, slides, items, btnsNext, btnsPrev, indicators);
+        this.iconNext = this.carousel.querySelector('.know-how__next-icon');
+        this.iconPrev = this.carousel.querySelector('.know-how__prev-icon');
+        this.knowHow = this.carousel.querySelectorAll('.know-how__item');
+        this.howNum = this.carousel.querySelectorAll('.know-how__number');
+        this.howSubtitle = this.carousel.querySelectorAll('.know-how__subtitle');
+	}
+	reset() {
+		this.offset = 0;
+		this.slideIndex = 0;
+		this.direction = 'next';
+		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
+		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		this.width = this.widthWindow / this.quantityInWindow;
+		this.slides.style.transform = '';
+		this.indicators.forEach(dot => dot.classList.remove(CLASS_INDICATOR_ACTIVE));
+		try {
+			this.indicators[0].classList.add(CLASS_INDICATOR_ACTIVE);
+		} catch (error) {}
 
-export default class carouselKnowHow {
-    constructor() {
-        this.parent = document.querySelector('.know-how');
-        this.width = window.getComputedStyle(this.parent.querySelector('.carousel-inner')).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
-        this.slidesField = this.parent.querySelector('.carousel-slides');
-        this.slides = this.parent.querySelectorAll('.carousel-item');
-        this.dots = this.parent.querySelectorAll('.carousel__indicators li');
-        this.knowHow = this.parent.querySelectorAll('.know-how__item');
-        this.howNum = this.parent.querySelectorAll('.know-how__number');
-        this.howSubtitle = this.parent.querySelectorAll('.know-how__subtitle');
+		this.endIndex = this.items.length - this.quantityInWindow;
+		// сделаем невидимой левую кнопку
+		if (this.btnsPrev) {
+			this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
+		}
+	}
+    swipe() {
+		let shiftX = 0;
+		this.slides.addEventListener('mousedown', (event) => {
+			shiftX = event.clientX;
+		});
+		this.slides.addEventListener('mouseup', (event) => {
+			this.direction = (event.clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(shiftX - event.clientX);
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		});
+		this.inner.addEventListener('touchstart', (event) => {
+			shiftX = event.touches[0].clientX;
+        }, {
+            passive: true
+        });
 
-        this.offset = 0;
-        this.slideIndex = 0;
+		this.inner.addEventListener('touchmove', (event) => {
+			this.slides.style.transform = `translateX(${event.touches[0].clientX - shiftX + this.offset}px)`;
+		}, {
+			passive: true
+		});
+
+		this.inner.addEventListener('touchend', (event) => {
+			this.direction = (event.changedTouches[0].clientX >= shiftX) ? 'prev' : 'next';
+			let diffPos = Math.abs(event.changedTouches[0].clientX - shiftX);
+			this.slides.style.transform =  `translateX(${this.offset}px)`;
+			if (diffPos > this.width/3) {
+				this.move();
+			}
+		}, {
+			passive: true
+		});
+	}
+	move() {
+		if (this.direction === 'next') {
+			this.slideIndex++;
+		} else {
+			this.slideIndex--;
+		}
+
+		if (this.slideIndex > this.endIndex) {
+			this.slideIndex = this.endIndex;
+			return
+		} if (this.slideIndex < 0) {
+			this.slideIndex = 0;
+			return
+		}
+		if(this.btnsPrev) {
+			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
+		}
+		if(this.btnsNext) {
+			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
+		}
+
+		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
+		this.offset += step;
+		this.slides.style.transform = `translateX(${this.offset}px)`;
+		this.updateControl();
+	    this.updateIndicators();
+        this.remove();
+        this.funAddClass(this.slideIndex);
+	}
+    updateControl() {
+		if(this.btnsPrev) {
+			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
+  		}
+		if(this.btnsNext) {
+			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
+		}
+		if (this.slideIndex >= this.endIndex) {
+			if(this.btnsNext) {
+				this.iconNext.classList.add(CLASS_CONTROL_DISABLED);
+			}
+		}
+		if (this.slideIndex <= 0) {
+			if(this.btnsPrev) {
+				this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
+			}
+		}
+	}
+
+    funAddClass(i=0) {
+        this.knowHow[i].classList.add('know-how__width');
+        this.howNum[i].classList.add('know-how__active');
+        this.howNum[i].classList.add('know-how__number-active');
+        this.howSubtitle[i].classList.add('know-how__active');
     }
-
-    initOfset(ind) {
-        switch (ind) {
-            case 'next':
-                if (this.offset == (+this.width.replace(/\D/g, '') * (this.slides.length - 1))) {
-                    this.offset = 0;
-                } else {
-                    this.offset += +this.width.replace(/\D/g, '');
-                }
-                break;
-            default:
-                if (this.offset == 0) {
-                    this.offset = +this.width.replace(/\D/g, '') * (this.slides.length - 1);
-                } else {
-                    this.offset -= +this.width.replace(/\D/g, '');
-                }
-                break;
-        }
-    }
-
     remove() {
         //для know-how__item
         this.knowHow.forEach(item => item.classList.remove('know-how__width'));
         this.howNum.forEach(item => item.classList.remove('know-how__active'));
         this.howNum.forEach(item => item.classList.remove('know-how__number-active'));
         this.howSubtitle.forEach(item => item.classList.remove('know-how__active'));
-        this.dots.forEach(dot => dot.classList.remove('active'));
-    }
-    funAddClass(i=0) {
-        this.knowHow[i].classList.add('know-how__width');
-        this.howNum[i].classList.add('know-how__active');
-        this.howNum[i].classList.add('know-how__number-active');
-        this.howSubtitle[i].classList.add('know-how__active');
-        this.dots[i].classList.add('active');
-    }
-
-    index(ind) {
-        switch (ind) {
-            case 'next':
-                if (this.slideIndex == this.slides.length - 1) {
-                    this.slideIndex = 0;
-                } else {
-                    this.slideIndex++;
-                }
-                break;
-            default:
-
-                if (this.slideIndex == 0) {
-                    this.slideIndex = this.slides.length - 1;
-                } else {
-                    this.slideIndex--;
-                }
-                break;
-        }
-    }
-    clickNext() {
-        this.parent.querySelector('[data-slide="next"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.initOfset("next");
-            this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            this.index("next");
-            this.remove();
-            this.funAddClass(+this.slideIndex);
-        })
-    }
-
-    clickPrev() {
-        this.parent.querySelector('[data-slide="prev"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.initOfset("prev");
-            this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-            this.index("prev");
-            this.remove();
-            this.funAddClass(+this.slideIndex);
-        });
-    }
-    indicators() {
-        const li = this.parent.querySelectorAll('.carousel__indicators li');
-        for (let i = 0 ; i < li.length; i++) {
-            li[i].addEventListener('click', (e) => {
-                const slideTo = e.target.getAttribute('data-slide-to');
-
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                this.remove();
-                this.funAddClass(+this.slideIndex);
-            });
-        }
     }
     frame() {
         for (let i = 0; i < this.knowHow.length; i++) {
             this.knowHow[i].addEventListener('click', (e) => {
                 const slideTo = this.knowHow[i].getAttribute('data-tap');
-                this.slideIndex = slideTo;
-                this.offset = +this.width * slideTo;
-
-                this.slidesField.style.transform = `translateX(-${this.offset}px)`;
-                //для know-how__item
+                this.moveTo(slideTo);
                 this.remove();
-                // this.parent.querySelector(`[data-tap="${+this.slideIndex}"]`).classList.add('know-how__width');
-                // this.dots[this.slideIndex].classList.add('active');
-                this.funAddClass(+this.slideIndex);
+                this.funAddClass(slideTo);
             })
         }
     }
-    reset() {
-        //чистим временные данные у слайдера
-        // carousel-slides width: 500%; transform: translateX(-1440px);
-        // carousel-item width: 1440px;
-        // this.width = window.getComputedStyle(this.parent.querySelector('.carousel-inner')).width.split('.')[0].replace(/\D/g, '');
-        this.slidesField.style.width = '';
-        this.slidesField.style.transform = '';
-        this.slides.forEach(slide => {
-            slide.style.width = '';
-        });
-        this.dots.forEach(dot => dot.classList.remove('active'));
-        this.dots[0].classList.add('active');
-        this.offset = 0;
-        this.slideIndex = 0;
-        this.remove();
-        this.funAddClass()
-    }
+
     render() {
-        this.slidesField.style.width = 100 * this.slides.length + '%';
-        this.slides.forEach(slide => {
-            slide.style.width = this.width + 'px';
-        });
-        this.clickNext();
-        this.clickPrev();
-        this.indicators();
+		this.reset();
+		this.clickIndicators();
+		this.clickNext();
+		this.clickPrev();
+		this.swipe();
         this.frame();
-    }
+	}
 }

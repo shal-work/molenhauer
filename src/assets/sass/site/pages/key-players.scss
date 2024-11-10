@@ -167,7 +167,7 @@
         font-size: 22px;
         transition: opacity .15s ease;
         text-decoration: none;
-        opacity: 0.4;
+        opacity: 1;
         @media (max-width: 920px) {
             display: none;
         }
@@ -186,8 +186,8 @@
             font-family: eicons;
         }
     }
-    &__active {
-        opacity: 1;
+    &__control-disabled{
+        opacity: 0.2;
     }
     &__logo-pagination {
         display: none;
@@ -240,7 +240,7 @@
     }
     &__content-slides {
         display: flex;
-        width: 300%;
+        width: 600%;
         transition: all 0.2s ease;
     }
 

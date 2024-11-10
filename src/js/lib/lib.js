@@ -6,7 +6,7 @@ import './modules/attributes';//setAttribute, removeAttribute, toggleAttribute
 import './modules/actions';//html, eq, index, find, siblings
 import './modules/effects';//
 import './components/dropdown';
-import './components/observer';
+// import './components/observer';
 import './components/accordion-triad';
 
 

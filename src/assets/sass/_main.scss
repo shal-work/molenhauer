@@ -84,15 +84,13 @@
 
 .element {
     width: 100vw;
-    // height: 7400px; //calc(1498px * 5)
-    // height: 100%;
+    width: 100%;
     top: 0px;
     position: absolute;
     z-index: 20;
     left: 0px;
-
     --deg: 45deg;
-    --len: 1728px;
+    --len: 1640px;
     // test
     // background-image: repeating-linear-gradient(var(--deg), red 0 var(--len),
     // blue var(--len) calc(var(--len) * 2));
@@ -102,25 +100,24 @@
 
     @media (min-width: 1728px) {
         --len: 1728px;
-        --len: 1820px;
+    }
+    @media (max-width: 1200px) {
+
+        --len: 39%;
     }
     @media (max-width: 920px) {
-        --len: 1000px;
-        --len: 776px;
         --len: 20%;
     }
     @media (max-width: 720px) {
-        --len: calc(20% + 80px);
+        --len: calc(19% + 80px);
     }
     @media (max-width: 520px) {
-        --len: calc(21% + 100px);
+        --len: calc(20% + 100px);
     }
-
     @media (max-width: 420px) {
         display: none;
     }
 }
-
 .supportive {
     overflow: hidden;
     position: relative;
@@ -132,4 +129,8 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden
+}
+
+.slider-control-hide {
+    display: none;
 }

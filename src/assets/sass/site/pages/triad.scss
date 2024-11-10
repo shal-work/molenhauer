@@ -136,7 +136,7 @@
 
         &::after {
             left: 0;
-            transform: translateX(0%);
+            transform: rotateZ(90deg) translateX(0%);
         }
     }
     &__content-active  {

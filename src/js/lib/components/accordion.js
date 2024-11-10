@@ -16,4 +16,3 @@ $.prototype.accordion = function(headActive = 'faq-active', textActive = 'faq-te
 
 
 // $('.accordion-head').accordion();
-$('.questions__faq').accordion();

@@ -1,8 +1,9 @@
-import CarouselExperience from '../components/carousel-experience-class';
-import carouselKnowHow from '../components/carousel-know-how-class';
-import carouselKeyPlayersLogo from '../components/carousel-key-players-logo-class';
-import carouselKeyPlayersSay from '../components/carousel-key-players-say-class';
 import scrolling from '../components/scrolling';
+import SliderClass from '../components/slider-class';
+import CarouselKnowHow from '../components/carousel-know-how-class';
+import CarouselKeyPlayersLogo from '../components/carousel-key-players-logo-class';
+// import CarouselExperience from '../components/carousel-experience-class';
+
 // работа с бургером
 // Добавляем класс active, для замены бургера на крестик (это в css)
 $('.navbar-toggle').on('click', function() {
@@ -35,7 +36,7 @@ $.prototype.dropdownFadeLeft = function() {
     }
 };
 $('.navbar-toggle').dropdownFadeLeft();
-// удаляем меню после нажатия
+// удаляем меню после click
 $('.collapse').on('click', function() {
     if (window.getComputedStyle(document.querySelector('.navbar-toggle')).display != 'none') {
         let item= document.querySelectorAll('.collapse');
@@ -48,7 +49,6 @@ $('.collapse').on('click', function() {
 // для experience
 let isMake = true;
 $.prototype.showPicture = function() {
-
     for (let i = 0; i < this.length; i++) {
         const howNum = this[i].querySelectorAll('.experience__number');
         $(this[i]).click(() => {
@@ -65,14 +65,54 @@ $.prototype.showPicture = function() {
         });
     }
 };
-// работа с навигацией якорей
-
 $('.experience__item').showPicture();
 
-let widthWidow = 0;
-const cKnowHow = new carouselKnowHow();
-const cKeyPlayersLogo= new carouselKeyPlayersLogo();
-const cKeyPlayersSay = new carouselKeyPlayersSay();
+// Carousel
+const cExperience = new SliderClass ({
+    selector: '.experience',
+    inner: '.experience__inner',
+    slides: '.experience__content',
+    items: '.experience__item',
+    btnsNext: '',
+    btnsPrev: '',
+    indicators: '.carousel__indicators li'
+  }
+);
+const cKnowHow = new CarouselKnowHow (
+    {
+        selector: '.know-how',
+        inner: '.know-how__exhibition',
+        slides: '.know-how__exhibition-slides',
+        items: '.know-how__exhibition-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+const cKeyPlayersLogo = new CarouselKeyPlayersLogo (
+    {
+        selector: '.key-players__logo-inner',
+        inner: '.key-players__logo-wap',
+        slides: '.key-players__logo-carousel',
+        items: '.key-players__logo-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+const cKeyPlayersSay = new SliderClass (
+    {
+        selector: '.key-players__clients-say',
+        inner: '.key-players__content-say',
+        slides: '.key-players__content-slides',
+        items: '.key-players__content-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+
+
 window.addEventListener('DOMContentLoaded', (e) => {
     //делаем актуальный размер фона для правильной работа с навигацией якорей
     elementHaight();
@@ -88,30 +128,28 @@ window.addEventListener('DOMContentLoaded', (e) => {
                     block: 'start'
                 })
             }
-
         })
     }
     widthWidow = e.currentTarget.innerWidth;
 
-    const cExperience = new CarouselExperience();
     cExperience.render();
     cKnowHow.render();
     cKeyPlayersLogo.render();
     cKeyPlayersSay.render();
 });
 
+let widthWidow = 0;
 window.addEventListener('resize', (e) => {
     if (widthWidow !== e.target.outerWidth) {
         // делаем актуальный размер фона
         elementHaight();
         widthWidow = e.currentTarget.innerWidth;
+        cExperience.reset();
         cKnowHow.reset();
         cKeyPlayersLogo.reset();
         cKeyPlayersSay.reset();
     }
 });
-
-
 
 // работа с навигацией якорей
 function elementHaight() {
@@ -128,8 +166,6 @@ $('.up-ico').on('click', function() {
         block: 'start'
     });
 });
-
-
 scrolling('.pageup');
 
 $('.pageup .up-ico').on('click', function() {
@@ -142,7 +178,6 @@ $('.pageup .up-ico').on('click', function() {
 });
 
 let isModal = false;
-let isBlock = false;
 $.prototype.showPerson = function() {
 const text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem mollitia sequi impedit obcaecati ad! Quis assumenda itaque, eligendi, optio rerum cumque ipsum, nam eum veniam incidunt vero consequuntur iste blanditiis!"
 
