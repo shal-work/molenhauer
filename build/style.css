@@ -3054,6 +3054,11 @@ body {
   width: 250px;
   transition: all 0.2s ease;
 }
+@media (min-width: 1728px) {
+  .know-how__width {
+    width: 250px;
+  }
+}
 .know-how__exhibition {
   display: block;
   overflow: hidden;
