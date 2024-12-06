@@ -1,6 +1,6 @@
-import SliderClass, {CLASS_INDICATOR_ACTIVE } from './slider-class';
+import SliderClass, {CLASS_INDICATOR_ACTIVE, CLASS_CONTROL_DISABLED } from './slider-class';
 
-const CLASS_CONTROL_HIDE = 'key-players__control-disabled';
+// const CLASS_CONTROL_DISABLED  = 'key-players__control-disabled';
 
 export default class CarouselKeyPlayersLogo extends SliderClass {
 	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
@@ -30,10 +30,6 @@ export default class CarouselKeyPlayersLogo extends SliderClass {
 		} catch (error) {}
 
 		this.endIndex = this.items.length - this.quantityInWindow;
-		// сделаем невидимой левую кнопку
-		if (this.btnsPrev) {
-			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
-		}
 		this.clearLinnear();
 	}
     move() {
@@ -51,10 +47,10 @@ export default class CarouselKeyPlayersLogo extends SliderClass {
 			return
 		}
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 
 		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
@@ -67,19 +63,19 @@ export default class CarouselKeyPlayersLogo extends SliderClass {
 	}
 	updateControl() {
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if (this.slideIndex >= this.endIndex) {
 			if(this.btnsNext) {
-				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsNext.classList.add(CLASS_CONTROL_DISABLED );
 			}
 		}
 		if (this.slideIndex <= 0) {
 			if(this.btnsPrev) {
-				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsPrev.classList.add(CLASS_CONTROL_DISABLED );
 			}
 		}
 	}

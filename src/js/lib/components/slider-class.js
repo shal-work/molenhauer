@@ -1,7 +1,7 @@
 'use strict'
 
-export const CLASS_CONTROL_HIDE = 'slider-control-hide';
 export const CLASS_INDICATOR_ACTIVE = 'active';
+export const CLASS_CONTROL_DISABLED = 'disabled';
 
 export default class SliderClass {
 	constructor({ selector = '', inner = '', slides = '', items = '', btnsNext = '', btnsPrev = '', indicators = '' } = {}) {
@@ -24,10 +24,12 @@ export default class SliderClass {
 	}
 
 	reset() {
+
 		this.offset = 0;
 		this.slideIndex = 0;
 		this.direction = 'next';
 		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
+		// debugger
 		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
 		this.width = this.widthWindow / this.quantityInWindow;
 		this.slides.style.transform = '';
@@ -40,7 +42,8 @@ export default class SliderClass {
 		this.endIndex = this.items.length - this.quantityInWindow;
 		// сделаем невидимой левую кнопку
 		if (this.btnsPrev) {
-			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.add(CLASS_CONTROL_DISABLED );
+			// this.spanIcoPrev.classList.add(CLASS_CONTROL_DISABLED );
 		}
 	}
 	swipe() {
@@ -100,10 +103,14 @@ export default class SliderClass {
 			return
 		}
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 
 		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
@@ -116,6 +123,7 @@ export default class SliderClass {
 	clickIndicators() {
 		for (let i = 0; i < this.indicators.length; i++) {
 			this.indicators[i].addEventListener('click', (e) => {
+				e.preventDefault();
 				const slideTo = e.target.getAttribute('data-slide-to');
 				this.moveTo(slideTo);
 			});
@@ -130,21 +138,24 @@ export default class SliderClass {
 	}
 	updateControl() {
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoPrev.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if (this.slideIndex >= this.endIndex) {
-			// this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+			// this.btnsNext.classList.add(CLASS_CONTROL_DISABLED );
 			if(this.btnsNext) {
-				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsNext.classList.add(CLASS_CONTROL_DISABLED );
+				// this.spanIcoNext.classList.add(CLASS_CONTROL_DISABLED );
 			}
 		}
 		if (this.slideIndex <= 0) {
-			// this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
 			if(this.btnsPrev) {
-				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsPrev.classList.add(CLASS_CONTROL_DISABLED );
+				// this.spanIcoPrev.classList.add(CLASS_CONTROL_DISABLED );
 			}
 		}
 	}

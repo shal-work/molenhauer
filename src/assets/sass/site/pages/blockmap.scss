@@ -101,11 +101,13 @@ ymaps {
         height: 100%;
     }
     &__network {
+        margin: 0;
         display: flex;
         align-items: center;
         gap: 16px;
     }
     &__text {
+        margin: 0;
         font-size: 15px;
         font-weight: 700;
         line-height: 22px;
@@ -120,6 +122,7 @@ ymaps {
         }
     }
     &__content {
+        margin: 0;
         font-size: 15px;
         font-weight: 400;
         line-height: 22.5px;
@@ -127,7 +130,7 @@ ymaps {
         @media (min-width: 1728px) {
             font-size: 15px;
             line-height: 22.5px;
-            margin-bottom: 16px;
+            // margin-bottom: 16px;
         }
         @media (max-width: 920px) {
             font-size: 13px;
@@ -141,6 +144,8 @@ ymaps {
         font-weight: 400;
         line-height: 22.5px;
         color: var(--orange-light);
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--orange-light);
     }
     &__ico {
         width: 40px;
@@ -166,10 +171,5 @@ ymaps {
             width: 30px;
             height: 30px;
         }
-    }
-    &__hr {
-        border: none;
-        border-top: 1px solid var(--orange-light);
-        margin-bottom: 16px;
     }
 }

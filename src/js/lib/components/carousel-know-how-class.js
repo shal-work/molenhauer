@@ -1,12 +1,10 @@
 import SliderClass,  {CLASS_INDICATOR_ACTIVE} from './slider-class';
 
-const CLASS_CONTROL_DISABLED = 'know-how__control-disabled';
 
 export default class CarouselKnowHow extends SliderClass {
 	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
         super(selector, inner, slides, items, btnsNext, btnsPrev, indicators);
-        this.iconNext = this.carousel.querySelector('.know-how__next-icon');
-        this.iconPrev = this.carousel.querySelector('.know-how__prev-icon');
+
         this.knowHow = this.carousel.querySelectorAll('.know-how__item');
         this.howNum = this.carousel.querySelectorAll('.know-how__number');
         this.howSubtitle = this.carousel.querySelectorAll('.know-how__subtitle');
@@ -16,7 +14,9 @@ export default class CarouselKnowHow extends SliderClass {
 		this.slideIndex = 0;
 		this.direction = 'next';
 		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
-		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		// debugger
+		// this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		this.widthWindow = this.inner.getBoundingClientRect().width;
 		this.width = this.widthWindow / this.quantityInWindow;
 		this.slides.style.transform = '';
 		this.indicators.forEach(dot => dot.classList.remove(CLASS_INDICATOR_ACTIVE));
@@ -25,10 +25,6 @@ export default class CarouselKnowHow extends SliderClass {
 		} catch (error) {}
 
 		this.endIndex = this.items.length - this.quantityInWindow;
-		// сделаем невидимой левую кнопку
-		if (this.btnsPrev) {
-			this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
-		}
 	}
     swipe() {
 		let shiftX = 0;
@@ -79,12 +75,6 @@ export default class CarouselKnowHow extends SliderClass {
 			this.slideIndex = 0;
 			return
 		}
-		if(this.btnsPrev) {
-			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
-		}
-		if(this.btnsNext) {
-			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
-		}
 
 		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
 		this.offset += step;
@@ -94,25 +84,6 @@ export default class CarouselKnowHow extends SliderClass {
         this.remove();
         this.funAddClass(this.slideIndex);
 	}
-    updateControl() {
-		if(this.btnsPrev) {
-			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
-  		}
-		if(this.btnsNext) {
-			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
-		}
-		if (this.slideIndex >= this.endIndex) {
-			if(this.btnsNext) {
-				this.iconNext.classList.add(CLASS_CONTROL_DISABLED);
-			}
-		}
-		if (this.slideIndex <= 0) {
-			if(this.btnsPrev) {
-				this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
-			}
-		}
-	}
-
     funAddClass(i=0) {
         this.knowHow[i].classList.add('know-how__width');
         this.howNum[i].classList.add('know-how__active');
@@ -129,6 +100,7 @@ export default class CarouselKnowHow extends SliderClass {
     frame() {
         for (let i = 0; i < this.knowHow.length; i++) {
             this.knowHow[i].addEventListener('click', (e) => {
+				e.preventDefault();
                 const slideTo = this.knowHow[i].getAttribute('data-tap');
                 this.moveTo(slideTo);
                 this.remove();

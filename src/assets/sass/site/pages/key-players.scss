@@ -14,6 +14,7 @@
         font-weight: 700;
         letter-spacing: -1px;
         color: var(--black);
+        margin: 0;
         margin-bottom: 72px;
         max-width: 370px;
         @media (max-width: 920px) {
@@ -69,6 +70,14 @@
             // gap: 73px;
         }
         @media (max-width: 620px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr 1fr 1fr;
+            width: 100%;
+            height: auto;
+            gap: 0;
+        }
+        @media (max-width: 390px) {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: 1fr 1fr 1fr;
@@ -173,14 +182,16 @@
         }
     }
     &__prev {
-        left: -0%;
+        left: 0%;
+        padding: 0;
         &::after{
             content: '\e87e';
             font-family: eicons;
         }
     }
     &__next {
-        right: -0%;
+        right: 0%;
+        padding: 0;
         &::after{
             content: '\e87d';
             font-family: eicons;
@@ -325,6 +336,7 @@
         font-weight: 400;
         letter-spacing: 0.3px;
         color: var(--grey-text);
+        margin: 0;
         @media (max-width: 920px) {
             font-size: 13px;
             line-height: 18.2px;
@@ -460,12 +472,14 @@
         line-height: 29px;
         letter-spacing: 0.27px;
         color: var(--dark-grey-text);
+        margin: 0;
         margin-bottom: calc(var(--vw)* 86);
 
         display: -webkit-box;
         -webkit-line-clamp: 7;
         -webkit-box-orient: vertical;
         overflow: hidden;
+
 
         @media (min-width: 1728px) {
             margin-bottom: 86px;
@@ -497,6 +511,7 @@
         line-height: 20px;
         letter-spacing: 0.18px;
         color: var(--dark2-grey-text);
+        margin: 0;
     }
 
     &__post {
@@ -505,6 +520,7 @@
         line-height: 22.5px;
         letter-spacing: 0.28px;
         color: var(--orange-light);
+        margin: 0;
     }
 
     &__pagination {
@@ -554,10 +570,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
         background-color: var(--primary);
+        border: 1px solid var(--primary);
         will-change: background-color;
         transition: background-color 0.1s ease;
+        cursor: pointer;
         &:hover {
             background-color: var(--primary-light);
         }
@@ -569,6 +586,7 @@
 
     &__prev-square {
         background-color: var(--primary);
+        border: 1px solid var(--primary);
         will-change: background-color;
         transition: background-color 0.1s ease;
         &:hover {
@@ -578,22 +596,20 @@
             width: 71.5px;
             height: 71.5px;
         }
-    }
-    &__prev-square-icon {
-        &::after{
+        &::after {
             content: "\e87e";
             font-family: eicons;
         }
     }
+
     &__next-square {
         background-color: var(--orange);
+        border: 1px solid var(--orange);
         will-change: background-color;
         transition: background-color 0.1s ease;
         &:hover {
             background-color: var(--orange-dark);
         }
-    }
-    &__next-square-icon {
         &::after{
             content: "\e87d";
             font-family: eicons;
@@ -601,6 +617,12 @@
     }
 }
 
+.disabled[data-slide="prev"]::after  {
+    opacity: 0.2;
+}
+.disabled[data-slide="next"]::after {
+    opacity: 0.2;
+}
 
 table {
     color: red;

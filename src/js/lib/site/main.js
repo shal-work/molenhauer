@@ -2,7 +2,6 @@ import scrolling from '../components/scrolling';
 import SliderClass from '../components/slider-class';
 import CarouselKnowHow from '../components/carousel-know-how-class';
 import CarouselKeyPlayersLogo from '../components/carousel-key-players-logo-class';
-// import CarouselExperience from '../components/carousel-experience-class';
 
 // работа с бургером
 // Добавляем класс active, для замены бургера на крестик (это в css)
@@ -51,11 +50,12 @@ let isMake = true;
 $.prototype.showPicture = function() {
     for (let i = 0; i < this.length; i++) {
         const howNum = this[i].querySelectorAll('.experience__number');
-        $(this[i]).click(() => {
+        $(this[i]).click((e) => {
+            e.preventDefault();
             if (isMake) {
                 isMake = false;
                 // $(this[i]).find('.experience__picture').fadeToggle(100, ,isFun());
-                $(this[i]).find('.experience__picture').fadeToggle(800, 'block', function(){isMake = true});
+                $(this[i]).find('.experience__picture').fadeToggle(400, 'block', function(){isMake = true});
                 // $(this[i]).find('.experience__picture').fadeToggle(800);
                 $(this[i]).find('.experience__number').toggleClass('experience__color-white');
                 $(this[i]).find('.experience__number').toggleClass('experience__number-active');
@@ -78,28 +78,6 @@ const cExperience = new SliderClass ({
     indicators: '.carousel__indicators li'
   }
 );
-const cKnowHow = new CarouselKnowHow (
-    {
-        selector: '.know-how',
-        inner: '.know-how__exhibition',
-        slides: '.know-how__exhibition-slides',
-        items: '.know-how__exhibition-item',
-        btnsNext: '[data-slide="next"]',
-        btnsPrev: '[data-slide="prev"]',
-        indicators: '.carousel__indicators li'
-    }
-);
-const cKeyPlayersLogo = new CarouselKeyPlayersLogo (
-    {
-        selector: '.key-players__logo-inner',
-        inner: '.key-players__logo-wap',
-        slides: '.key-players__logo-carousel',
-        items: '.key-players__logo-item',
-        btnsNext: '[data-slide="next"]',
-        btnsPrev: '[data-slide="prev"]',
-        indicators: '.carousel__indicators li'
-    }
-);
 const cKeyPlayersSay = new SliderClass (
     {
         selector: '.key-players__clients-say',
@@ -111,6 +89,29 @@ const cKeyPlayersSay = new SliderClass (
         indicators: '.carousel__indicators li'
     }
 );
+const cKnowHow = new CarouselKnowHow ( //extends SliderClass
+    {
+        selector: '.know-how',
+        inner: '.know-how__exhibition',
+        slides: '.know-how__exhibition-slides',
+        items: '.know-how__exhibition-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+const cKeyPlayersLogo = new CarouselKeyPlayersLogo ( //extends SliderClass
+    {
+        selector: '.key-players__logo-inner',
+        inner: '.key-players__logo-wap',
+        slides: '.key-players__logo-carousel',
+        items: '.key-players__logo-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+
 
 
 window.addEventListener('DOMContentLoaded', (e) => {
@@ -133,9 +134,9 @@ window.addEventListener('DOMContentLoaded', (e) => {
     widthWidow = e.currentTarget.innerWidth;
 
     cExperience.render();
+    cKeyPlayersSay.render();
     cKnowHow.render();
     cKeyPlayersLogo.render();
-    cKeyPlayersSay.render();
 });
 
 let widthWidow = 0;
@@ -145,10 +146,11 @@ window.addEventListener('resize', (e) => {
         elementHaight();
         widthWidow = e.currentTarget.innerWidth;
         cExperience.reset();
+        cKeyPlayersSay.reset();
         cKnowHow.reset();
         cKeyPlayersLogo.reset();
-        cKeyPlayersSay.reset();
     }
+    
 });
 
 // работа с навигацией якорей
@@ -191,7 +193,7 @@ const text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptat
         </div>`;
 
         $(this[i]).click((e) => {
-
+            e.preventDefault();
             const content = $(this[i]).find('.modal__person').html();
             if (!isModal) {
                 $(this[i]).html(contentModal);
@@ -210,3 +212,15 @@ const text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptat
     }
 };
 $('.person__item').showPerson();
+
+
+//запрет для переход по <a href="#" class="plane__text">
+$('.plane__text').on('click', function(e) {
+    e.preventDefault();
+});
+$('.person__describe').on('click', function(e) {
+    
+});
+$('.leader__action').on('click', function(e) {
+    e.preventDefault();
+});

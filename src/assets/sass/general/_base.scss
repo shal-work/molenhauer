@@ -1,6 +1,6 @@
 *{
-    margin: 0;
-    padding: 0;
+    // margin: 0; //при верстке по БЭМ нежелательно применять общие сброс стилей в *
+    // padding: 0; //при верстке по БЭМ нежелательно применять общие сброс стилей в *
     box-sizing: border-box;
 }
 *, ::after, ::before {
@@ -9,6 +9,8 @@
 :root {
     --index: calc(1vw + 1vh);
     --vw: calc(100vw/1728);
+    --container-padding-x: 16px;
+    --container-width:  1728px;
 }
 
 a, a:link, a:visited {
@@ -25,6 +27,7 @@ a, a:link, a:visited {
 
 // прячем прокрутку
 body {
+    margin: 0; //при верстке по БЭМ нежелательно применять общие сброс стилей в *
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: var(--grey-light);

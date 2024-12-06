@@ -8,6 +8,9 @@
     @media (max-width: 920px) {
         margin: 0 0 0 34px;
     }
+    @media (max-width: 767px) {
+        margin: 0 14px;
+    }
     &__title {
         font-size: 40px;
         font-weight: 700;
@@ -109,6 +112,7 @@
     }
 }
 .subtitle {
+    margin: 0;
     transform: rotate(-90deg);
     // transform: rotate(0deg);
     transform-origin: bottom left;
@@ -201,6 +205,7 @@
     }
 
     &__name {
+        margin: 0;
         font-size: calc(var(--vw) * 36);
         font-weight: 700;
         line-height: calc(var(--vw) * 36);
@@ -217,6 +222,7 @@
     }
 
     &__action {
+        display: block;
         font-size: calc(var(--vw) * 16);
         font-weight: 400;
         line-height: calc(var(--vw) * 16);
@@ -239,10 +245,14 @@
             will-change: transform;
             transition: all 0.2s ease;
             cursor: pointer;
+            padding-right: 16px;
+            left: 0px;
+            font-size: 14px;
         }
     }
 
     &__describe {
+        margin: 0;
         font-size: 16px;
         font-weight: 400;
         line-height: 22px;
@@ -252,10 +262,11 @@
     }
 
     &__in {
+        display: block;
+        text-align: center;
         width: 20px;
         height: 21px;
         background-color: var(--primary-in);
-        cursor: pointer;
         &:hover {
             background-color: var(--primary-in-dark);
         }
@@ -347,6 +358,7 @@
         padding: 0 5px 0 0 ;
     }
     &__name {
+        margin: 0;
         font-size: calc(var(--vw) * 7 + 13px);
         font-weight: 700;
         line-height: calc(var(--vw) * 8 + 16px);
@@ -360,6 +372,8 @@
         }
     }
     &__describe {
+        margin: 0;
+        display: block;
         font-size: calc(var(--vw) * 2 + 14px);
         font-weight: 400;
         line-height: calc(var(--vw) * 2 + 14px);
@@ -386,10 +400,13 @@
             will-change: transform;
             transition: all 0.2s ease;
             cursor: pointer;
-            transform: translateX(-26px);
+            left: 0px;
+            padding-right: 16px;
+            font-size: 14px;
         }
         &:hover::before {
-            transform:  translateX(-26px) rotateZ(-45deg);
+            transform:  rotateZ(-45deg);
+            transform-origin: 0;
         }
     }
     &__row {

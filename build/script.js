@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider-class */ "./src/js/lib/components/slider-class.js");
 
 
-const CLASS_CONTROL_HIDE = 'key-players__control-disabled';
+// const CLASS_CONTROL_DISABLED  = 'key-players__control-disabled';
 
 class CarouselKeyPlayersLogo extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["default"] {
 	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
@@ -164,10 +164,6 @@ class CarouselKeyPlayersLogo extends _slider_class__WEBPACK_IMPORTED_MODULE_0__[
 		} catch (error) {}
 
 		this.endIndex = this.items.length - this.quantityInWindow;
-		// сделаем невидимой левую кнопку
-		if (this.btnsPrev) {
-			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
-		}
 		this.clearLinnear();
 	}
     move() {
@@ -185,10 +181,10 @@ class CarouselKeyPlayersLogo extends _slider_class__WEBPACK_IMPORTED_MODULE_0__[
 			return
 		}
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_CONTROL_DISABLED"] );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_CONTROL_DISABLED"] );
 		}
 
 		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
@@ -201,19 +197,19 @@ class CarouselKeyPlayersLogo extends _slider_class__WEBPACK_IMPORTED_MODULE_0__[
 	}
 	updateControl() {
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_CONTROL_DISABLED"] );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_CONTROL_DISABLED"] );
 		}
 		if (this.slideIndex >= this.endIndex) {
 			if(this.btnsNext) {
-				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsNext.classList.add(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_CONTROL_DISABLED"] );
 			}
 		}
 		if (this.slideIndex <= 0) {
 			if(this.btnsPrev) {
-				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsPrev.classList.add(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_CONTROL_DISABLED"] );
 			}
 		}
 	}
@@ -291,13 +287,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider-class */ "./src/js/lib/components/slider-class.js");
 
 
-const CLASS_CONTROL_DISABLED = 'know-how__control-disabled';
 
 class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["default"] {
 	constructor(selector, inner, slides, items, btnsNext, btnsPrev, indicators ) {
         super(selector, inner, slides, items, btnsNext, btnsPrev, indicators);
-        this.iconNext = this.carousel.querySelector('.know-how__next-icon');
-        this.iconPrev = this.carousel.querySelector('.know-how__prev-icon');
+
         this.knowHow = this.carousel.querySelectorAll('.know-how__item');
         this.howNum = this.carousel.querySelectorAll('.know-how__number');
         this.howSubtitle = this.carousel.querySelectorAll('.know-how__subtitle');
@@ -307,7 +301,9 @@ class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["defaul
 		this.slideIndex = 0;
 		this.direction = 'next';
 		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
-		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		// debugger
+		// this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
+		this.widthWindow = this.inner.getBoundingClientRect().width;
 		this.width = this.widthWindow / this.quantityInWindow;
 		this.slides.style.transform = '';
 		this.indicators.forEach(dot => dot.classList.remove(_slider_class__WEBPACK_IMPORTED_MODULE_0__["CLASS_INDICATOR_ACTIVE"]));
@@ -316,10 +312,6 @@ class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["defaul
 		} catch (error) {}
 
 		this.endIndex = this.items.length - this.quantityInWindow;
-		// сделаем невидимой левую кнопку
-		if (this.btnsPrev) {
-			this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
-		}
 	}
     swipe() {
 		let shiftX = 0;
@@ -370,12 +362,6 @@ class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["defaul
 			this.slideIndex = 0;
 			return
 		}
-		if(this.btnsPrev) {
-			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
-		}
-		if(this.btnsNext) {
-			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
-		}
 
 		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
 		this.offset += step;
@@ -385,25 +371,6 @@ class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["defaul
         this.remove();
         this.funAddClass(this.slideIndex);
 	}
-    updateControl() {
-		if(this.btnsPrev) {
-			this.iconPrev.classList.remove(CLASS_CONTROL_DISABLED);
-  		}
-		if(this.btnsNext) {
-			this.iconNext.classList.remove(CLASS_CONTROL_DISABLED);
-		}
-		if (this.slideIndex >= this.endIndex) {
-			if(this.btnsNext) {
-				this.iconNext.classList.add(CLASS_CONTROL_DISABLED);
-			}
-		}
-		if (this.slideIndex <= 0) {
-			if(this.btnsPrev) {
-				this.iconPrev.classList.add(CLASS_CONTROL_DISABLED);
-			}
-		}
-	}
-
     funAddClass(i=0) {
         this.knowHow[i].classList.add('know-how__width');
         this.howNum[i].classList.add('know-how__active');
@@ -420,6 +387,7 @@ class CarouselKnowHow extends _slider_class__WEBPACK_IMPORTED_MODULE_0__["defaul
     frame() {
         for (let i = 0; i < this.knowHow.length; i++) {
             this.knowHow[i].addEventListener('click', (e) => {
+				e.preventDefault();
                 const slideTo = this.knowHow[i].getAttribute('data-tap');
                 this.moveTo(slideTo);
                 this.remove();
@@ -502,18 +470,18 @@ const scrolling = (upSelector) => {
 /*!***********************************************!*\
   !*** ./src/js/lib/components/slider-class.js ***!
   \***********************************************/
-/*! exports provided: CLASS_CONTROL_HIDE, CLASS_INDICATOR_ACTIVE, default */
+/*! exports provided: CLASS_INDICATOR_ACTIVE, CLASS_CONTROL_DISABLED, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_CONTROL_HIDE", function() { return CLASS_CONTROL_HIDE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_INDICATOR_ACTIVE", function() { return CLASS_INDICATOR_ACTIVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_CONTROL_DISABLED", function() { return CLASS_CONTROL_DISABLED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SliderClass; });
 
 
-const CLASS_CONTROL_HIDE = 'slider-control-hide';
 const CLASS_INDICATOR_ACTIVE = 'active';
+const CLASS_CONTROL_DISABLED = 'disabled';
 
 class SliderClass {
 	constructor({ selector = '', inner = '', slides = '', items = '', btnsNext = '', btnsPrev = '', indicators = '' } = {}) {
@@ -536,10 +504,12 @@ class SliderClass {
 	}
 
 	reset() {
+
 		this.offset = 0;
 		this.slideIndex = 0;
 		this.direction = 'next';
 		this.quantityInWindow = Math.round(this.inner.offsetWidth / this.items[0].offsetWidth);
+		// debugger
 		this.widthWindow = window.getComputedStyle(this.inner).width.split('.')[0].replace(/\D/g, ''); //(2000.99222px или 2000px) выдаст 2000;
 		this.width = this.widthWindow / this.quantityInWindow;
 		this.slides.style.transform = '';
@@ -552,7 +522,8 @@ class SliderClass {
 		this.endIndex = this.items.length - this.quantityInWindow;
 		// сделаем невидимой левую кнопку
 		if (this.btnsPrev) {
-			this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.add(CLASS_CONTROL_DISABLED );
+			// this.spanIcoPrev.classList.add(CLASS_CONTROL_DISABLED );
 		}
 	}
 	swipe() {
@@ -612,10 +583,14 @@ class SliderClass {
 			return
 		}
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 
 		let step = this.direction === 'next' ? -(+this.width) : (+this.width);
@@ -628,6 +603,7 @@ class SliderClass {
 	clickIndicators() {
 		for (let i = 0; i < this.indicators.length; i++) {
 			this.indicators[i].addEventListener('click', (e) => {
+				e.preventDefault();
 				const slideTo = e.target.getAttribute('data-slide-to');
 				this.moveTo(slideTo);
 			});
@@ -642,21 +618,24 @@ class SliderClass {
 	}
 	updateControl() {
 		if(this.btnsPrev) {
-			this.btnsPrev.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsPrev.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoPrev.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if(this.btnsNext) {
-			this.btnsNext.classList.remove(CLASS_CONTROL_HIDE);
+			this.btnsNext.classList.remove(CLASS_CONTROL_DISABLED );
+			// this.spanIcoNext.classList.remove(CLASS_CONTROL_DISABLED );
 		}
 		if (this.slideIndex >= this.endIndex) {
-			// this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+			// this.btnsNext.classList.add(CLASS_CONTROL_DISABLED );
 			if(this.btnsNext) {
-				this.btnsNext.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsNext.classList.add(CLASS_CONTROL_DISABLED );
+				// this.spanIcoNext.classList.add(CLASS_CONTROL_DISABLED );
 			}
 		}
 		if (this.slideIndex <= 0) {
-			// this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
 			if(this.btnsPrev) {
-				this.btnsPrev.classList.add(CLASS_CONTROL_HIDE);
+				this.btnsPrev.classList.add(CLASS_CONTROL_DISABLED );
+				// this.spanIcoPrev.classList.add(CLASS_CONTROL_DISABLED );
 			}
 		}
 	}
@@ -1251,7 +1230,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import CarouselExperience from '../components/carousel-experience-class';
 
 // работа с бургером
 // Добавляем класс active, для замены бургера на крестик (это в css)
@@ -1300,11 +1278,12 @@ let isMake = true;
 $.prototype.showPicture = function() {
     for (let i = 0; i < this.length; i++) {
         const howNum = this[i].querySelectorAll('.experience__number');
-        $(this[i]).click(() => {
+        $(this[i]).click((e) => {
+            e.preventDefault();
             if (isMake) {
                 isMake = false;
                 // $(this[i]).find('.experience__picture').fadeToggle(100, ,isFun());
-                $(this[i]).find('.experience__picture').fadeToggle(800, 'block', function(){isMake = true});
+                $(this[i]).find('.experience__picture').fadeToggle(400, 'block', function(){isMake = true});
                 // $(this[i]).find('.experience__picture').fadeToggle(800);
                 $(this[i]).find('.experience__number').toggleClass('experience__color-white');
                 $(this[i]).find('.experience__number').toggleClass('experience__number-active');
@@ -1327,28 +1306,6 @@ const cExperience = new _components_slider_class__WEBPACK_IMPORTED_MODULE_1__["d
     indicators: '.carousel__indicators li'
   }
 );
-const cKnowHow = new _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_2__["default"] (
-    {
-        selector: '.know-how',
-        inner: '.know-how__exhibition',
-        slides: '.know-how__exhibition-slides',
-        items: '.know-how__exhibition-item',
-        btnsNext: '[data-slide="next"]',
-        btnsPrev: '[data-slide="prev"]',
-        indicators: '.carousel__indicators li'
-    }
-);
-const cKeyPlayersLogo = new _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_3__["default"] (
-    {
-        selector: '.key-players__logo-inner',
-        inner: '.key-players__logo-wap',
-        slides: '.key-players__logo-carousel',
-        items: '.key-players__logo-item',
-        btnsNext: '[data-slide="next"]',
-        btnsPrev: '[data-slide="prev"]',
-        indicators: '.carousel__indicators li'
-    }
-);
 const cKeyPlayersSay = new _components_slider_class__WEBPACK_IMPORTED_MODULE_1__["default"] (
     {
         selector: '.key-players__clients-say',
@@ -1360,6 +1317,29 @@ const cKeyPlayersSay = new _components_slider_class__WEBPACK_IMPORTED_MODULE_1__
         indicators: '.carousel__indicators li'
     }
 );
+const cKnowHow = new _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_2__["default"] ( //extends SliderClass
+    {
+        selector: '.know-how',
+        inner: '.know-how__exhibition',
+        slides: '.know-how__exhibition-slides',
+        items: '.know-how__exhibition-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+const cKeyPlayersLogo = new _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_3__["default"] ( //extends SliderClass
+    {
+        selector: '.key-players__logo-inner',
+        inner: '.key-players__logo-wap',
+        slides: '.key-players__logo-carousel',
+        items: '.key-players__logo-item',
+        btnsNext: '[data-slide="next"]',
+        btnsPrev: '[data-slide="prev"]',
+        indicators: '.carousel__indicators li'
+    }
+);
+
 
 
 window.addEventListener('DOMContentLoaded', (e) => {
@@ -1382,9 +1362,9 @@ window.addEventListener('DOMContentLoaded', (e) => {
     widthWidow = e.currentTarget.innerWidth;
 
     cExperience.render();
+    cKeyPlayersSay.render();
     cKnowHow.render();
     cKeyPlayersLogo.render();
-    cKeyPlayersSay.render();
 });
 
 let widthWidow = 0;
@@ -1394,10 +1374,11 @@ window.addEventListener('resize', (e) => {
         elementHaight();
         widthWidow = e.currentTarget.innerWidth;
         cExperience.reset();
+        cKeyPlayersSay.reset();
         cKnowHow.reset();
         cKeyPlayersLogo.reset();
-        cKeyPlayersSay.reset();
     }
+    
 });
 
 // работа с навигацией якорей
@@ -1440,7 +1421,7 @@ const text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptat
         </div>`;
 
         $(this[i]).click((e) => {
-
+            e.preventDefault();
             const content = $(this[i]).find('.modal__person').html();
             if (!isModal) {
                 $(this[i]).html(contentModal);
@@ -1460,6 +1441,17 @@ const text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptat
 };
 $('.person__item').showPerson();
 
+
+//запрет для переход по <a href="#" class="plane__text">
+$('.plane__text').on('click', function(e) {
+    e.preventDefault();
+});
+$('.person__describe').on('click', function(e) {
+    
+});
+$('.leader__action').on('click', function(e) {
+    e.preventDefault();
+});
 
 /***/ }),
 

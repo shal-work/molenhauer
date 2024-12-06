@@ -1,3 +1,4 @@
+@use '../../components/button';
 .banner {
     display: block;
     height: 100%;
@@ -71,6 +72,7 @@
         letter-spacing: -1.47px;
         margin-bottom: calc(var(--vw) * 24);
         @media (min-width: 1728px) {
+            margin: 0;
             font-size: 64px;
             line-height: 70.4px;
             margin-bottom: 24px;
