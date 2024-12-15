@@ -318,9 +318,6 @@
         grid-template-rows: 1fr;
         row-gap: 30px;
     }
-    &__item {
-        cursor: pointer;
-    }
     &__item-modal {
         position: fixed;
         top: 25%;
@@ -339,7 +336,6 @@
         }
     }
     &__photo {
-
         max-width: 215px;
         max-height: 216px;
         z-index: 1;
@@ -347,6 +343,11 @@
         display: flex;
         overflow: hidden;
         margin-bottom: 16px;
+        padding: 0;
+        background-color: transparent;
+        background-color: transparent;
+        border: 0px solid transparent;
+        cursor: pointer;
     }
     &__img {
         width: 100%;

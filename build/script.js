@@ -669,6 +669,28 @@ class SliderClass {
 
 /***/ }),
 
+/***/ "./src/js/lib/components/tn-atom.js":
+/*!******************************************!*\
+  !*** ./src/js/lib/components/tn-atom.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const tnAtom = () => {
+    const atom = document.querySelector('.tn-atom');
+    const height = window.getComputedStyle(document.querySelector('body')).height;
+    if (window.getComputedStyle(atom, null).display !== 'none') atom.style.height = height;
+    else atom.style.height = 0;
+
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (tnAtom);
+
+
+/***/ }),
+
 /***/ "./src/js/lib/core.js":
 /*!****************************!*\
   !*** ./src/js/lib/core.js ***!
@@ -1226,6 +1248,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_slider_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/slider-class */ "./src/js/lib/components/slider-class.js");
 /* harmony import */ var _components_carousel_know_how_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/carousel-know-how-class */ "./src/js/lib/components/carousel-know-how-class.js");
 /* harmony import */ var _components_carousel_key_players_logo_class__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/carousel-key-players-logo-class */ "./src/js/lib/components/carousel-key-players-logo-class.js");
+/* harmony import */ var _components_tn_atom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/tn-atom */ "./src/js/lib/components/tn-atom.js");
+
 
 
 
@@ -1251,13 +1275,13 @@ $.prototype.dropdownFadeLeft = function() {
                 $(`[data-toggle-id="${id}"]`).addClass("fadeInRight");
                 $(`[data-toggle-id="${id}"]`).fadeIn(5, 'flex' , toggleIsClick);
                 $('.language').addClass('language-show');
-                $('body').addClass('none-scroll');
+                $('body').addClass('none-scroll'); //чтобы не прокручивалась страница пока открыто меню
             } else {
                 $(`[data-toggle-id="${id}"]`).removeClass("fadeInRight");
                 $(`[data-toggle-id="${id}"]`).addClass("fadeOutRight");
                 $(`[data-toggle-id="${id}"]`).fadeOut(500, toggleIsClick);
                 $('.language').removeClass('language-show');
-                $('body').removeClass('none-scroll');
+                $('body').removeClass('none-scroll');//чтобы не прокручивалась страница пока открыто меню
             }
         });
     }
@@ -1270,6 +1294,7 @@ $('.collapse').on('click', function() {
         item.forEach((item) => item.style.display = 'none');
         $('.burger').toggleClass('active');
         isClick ?  isClick = false : isClick = true;
+        $('body').removeClass('none-scroll');
     }
 });
 
@@ -1365,6 +1390,10 @@ window.addEventListener('DOMContentLoaded', (e) => {
     cKeyPlayersSay.render();
     cKnowHow.render();
     cKeyPlayersLogo.render();
+    //добавляю tn-atom
+    //определяю высоту сайта
+    Object(_components_tn_atom__WEBPACK_IMPORTED_MODULE_4__["default"])();
+    
 });
 
 let widthWidow = 0;
@@ -1377,6 +1406,7 @@ window.addEventListener('resize', (e) => {
         cKeyPlayersSay.reset();
         cKnowHow.reset();
         cKeyPlayersLogo.reset();
+        Object(_components_tn_atom__WEBPACK_IMPORTED_MODULE_4__["default"])();
     }
     
 });

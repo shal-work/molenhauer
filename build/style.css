@@ -1142,6 +1142,23 @@ body {
   overflow: hidden;
 }
 
+.tn-atom {
+  opacity: 0.5;
+  background-image: url("./assets/img/noise.gif");
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: calc(var(--index) * 5) auto;
+  background-repeat: repeat !important;
+  pointer-events: none;
+}
+@media (max-width: 1728px) {
+  .tn-atom {
+    display: none;
+  }
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -2689,6 +2706,7 @@ body {
   }
 }
 .experience__item {
+  padding: 0;
   display: block;
   float: left;
   max-width: 288px;
@@ -2739,8 +2757,6 @@ body {
   margin: calc(var(--vw) * 55) 0 0 calc(var(--vw) * 37);
   z-index: 999;
   position: absolute;
-  width: 200px;
-  height: 200px;
 }
 .experience__number::after {
   content: "+";
@@ -3009,11 +3025,21 @@ body {
   }
 }
 .know-how__item {
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   height: auto;
   width: calc(var(--vw) * 110 + 80px);
   padding-right: calc(var(--vw) * 20 + 4px);
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-radius: 0px;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 17px;
+  letter-spacing: 0.3px;
 }
 .know-how__item:not(:first-child)::before {
   content: "";
@@ -3099,7 +3125,7 @@ body {
 }
 .know-how__width {
   width: 250px;
-  transition: all 0.2s ease;
+  transition: width 0.2s ease;
 }
 @media (min-width: 1728px) {
   .know-how__width {
@@ -3412,7 +3438,6 @@ body {
   padding: 49px 14px;
   color: red;
   font-size: 32px;
-  cursor: pointer;
 }
 @media (max-width: 620px) {
   .key-players__logo-item {
@@ -4463,9 +4488,6 @@ table {
     row-gap: 30px;
   }
 }
-.person__item {
-  cursor: pointer;
-}
 .person__item-modal {
   position: fixed;
   top: 25%;
@@ -4494,6 +4516,11 @@ table {
   display: flex;
   overflow: hidden;
   margin-bottom: 16px;
+  padding: 0;
+  background-color: transparent;
+  background-color: transparent;
+  border: 0px solid transparent;
+  cursor: pointer;
 }
 .person__img {
   width: 100%;

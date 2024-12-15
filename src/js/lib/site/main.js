@@ -2,6 +2,7 @@ import scrolling from '../components/scrolling';
 import SliderClass from '../components/slider-class';
 import CarouselKnowHow from '../components/carousel-know-how-class';
 import CarouselKeyPlayersLogo from '../components/carousel-key-players-logo-class';
+import tnAtom from '../components/tn-atom';
 
 // работа с бургером
 // Добавляем класс active, для замены бургера на крестик (это в css)
@@ -23,13 +24,13 @@ $.prototype.dropdownFadeLeft = function() {
                 $(`[data-toggle-id="${id}"]`).addClass("fadeInRight");
                 $(`[data-toggle-id="${id}"]`).fadeIn(5, 'flex' , toggleIsClick);
                 $('.language').addClass('language-show');
-                $('body').addClass('none-scroll');
+                $('body').addClass('none-scroll'); //чтобы не прокручивалась страница пока открыто меню
             } else {
                 $(`[data-toggle-id="${id}"]`).removeClass("fadeInRight");
                 $(`[data-toggle-id="${id}"]`).addClass("fadeOutRight");
                 $(`[data-toggle-id="${id}"]`).fadeOut(500, toggleIsClick);
                 $('.language').removeClass('language-show');
-                $('body').removeClass('none-scroll');
+                $('body').removeClass('none-scroll');//чтобы не прокручивалась страница пока открыто меню
             }
         });
     }
@@ -42,6 +43,7 @@ $('.collapse').on('click', function() {
         item.forEach((item) => item.style.display = 'none');
         $('.burger').toggleClass('active');
         isClick ?  isClick = false : isClick = true;
+        $('body').removeClass('none-scroll');
     }
 });
 
@@ -137,6 +139,10 @@ window.addEventListener('DOMContentLoaded', (e) => {
     cKeyPlayersSay.render();
     cKnowHow.render();
     cKeyPlayersLogo.render();
+    //добавляю tn-atom
+    //определяю высоту сайта
+    tnAtom();
+    
 });
 
 let widthWidow = 0;
@@ -149,6 +155,7 @@ window.addEventListener('resize', (e) => {
         cKeyPlayersSay.reset();
         cKnowHow.reset();
         cKeyPlayersLogo.reset();
+        tnAtom();
     }
     
 });
