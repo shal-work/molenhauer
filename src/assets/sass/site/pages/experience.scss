@@ -29,7 +29,7 @@
         line-height: 23.4px;
         letter-spacing: 0.3px;
         text-align: center;
-        color: var(--grey-text);
+        color: var(--grey-text-contrast);
     }
 
     &__content {
@@ -97,7 +97,7 @@
         font-weight: 800;
         line-height: 17px;
         letter-spacing: 0.3px;
-        color: var(--orange);
+        color: var(--orange-contrast);
         margin: calc(var(--vw) * 55) 0 0 calc(var(--vw) *37);
         z-index: 999;
         position: absolute;

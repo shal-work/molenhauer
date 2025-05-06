@@ -57,6 +57,7 @@
         position: relative;
         font-size: 30px;
         top: -30px;
+        line-height: 0;
         &::after {
             content: "\e8c0";
             font-family: eicons;

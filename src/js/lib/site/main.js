@@ -142,7 +142,14 @@ window.addEventListener('DOMContentLoaded', (e) => {
     //добавляю tn-atom
     //определяю высоту сайта
     tnAtom();
-    
+
+
+
+    const ymapLink = document.querySelectorAll('.ymaps-2-1-79-copyright__link');
+    for (let i = 0; i < ymapLink.length; i++) {
+        debugger
+        ymapLink[i].setAttribute("data-filter", "pillows");
+    }
 });
 
 let widthWidow = 0;
@@ -231,3 +238,4 @@ $('.person__describe').on('click', function(e) {
 $('.leader__action').on('click', function(e) {
     e.preventDefault();
 });
+

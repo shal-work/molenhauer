@@ -170,7 +170,8 @@
         margin: 0;
         margin-bottom: 30px;
 
-        color: var(--grey-text-comm);
+        // color: var(--grey-text-comm);
+        color: var(--grey-text-contrast);
         &::after {
             content: "+";
             position: absolute;
@@ -200,7 +201,8 @@
         letter-spacing: -1px;
         text-align: left;
         margin: 0;
-        color: var(--grey-text-comm);
+        // color: var(--grey-text-comm);
+        color: var(--grey-text-contrast);
         @media (min-width: 1728px) {
             font-size: 20px;
             font-weight: 600;
@@ -258,8 +260,8 @@
     }
 
     &__picture {
-        max-width: 936px;
-        max-height: 557px;
+        // max-width: 936px;
+        // max-height: 557px;
         height: 100%;
         width: 100%;
         display: flex;
@@ -271,8 +273,6 @@
     }
 
     &__img {
-        width: 100%;
-        height: auto;
         @media (max-width: 920px) {
             scale: 1.5;
         }

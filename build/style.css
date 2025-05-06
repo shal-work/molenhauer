@@ -32,6 +32,9 @@
   --dark2-grey-text: #2F3034;
   --grey2: #D9D9D9;
   --border: #E2E2E2;
+  --grey2-contrast: #595959;
+  --grey-text-contrast: #53585A;
+  --orange-contrast: #943C14;
 }
 
 * {
@@ -97,7 +100,7 @@ body {
 }
 .btn-orange {
   border: 1px solid var(--orange);
-  background-color: var(--orange);
+  background-color: var(--orange-contrast);
   border-radius: 0px;
 }
 .btn-orange:hover {
@@ -107,13 +110,14 @@ body {
 }
 .btn-serve {
   background-color: var(--primary60);
+  background-color: transparent;
   border: 2px solid var(--white);
   border-radius: 0px;
 }
 .btn-serve:hover {
-  background-color: var(--white);
   border: 2px solid var(--white);
   color: var(--primary);
+  background-color: var(--contact);
 }
 .btn-contact {
   border: 2px solid var(--white);
@@ -1347,7 +1351,7 @@ body {
   font-size: 15px;
   line-height: 18px;
   font-weight: 400;
-  color: var(--grey2);
+  color: var(--grey2-contrast);
   transition: all 0.2s;
 }
 .language__reduction:hover {
@@ -2672,7 +2676,7 @@ body {
   line-height: 23.4px;
   letter-spacing: 0.3px;
   text-align: center;
-  color: var(--grey-text);
+  color: var(--grey-text-contrast);
 }
 .experience__content {
   display: flex;
@@ -2753,7 +2757,7 @@ body {
   font-weight: 800;
   line-height: 17px;
   letter-spacing: 0.3px;
-  color: var(--orange);
+  color: var(--orange-contrast);
   margin: calc(var(--vw) * 55) 0 0 calc(var(--vw) * 37);
   z-index: 999;
   position: absolute;
@@ -3074,7 +3078,7 @@ body {
   letter-spacing: 0.3px;
   margin: 0;
   margin-bottom: 30px;
-  color: var(--grey-text-comm);
+  color: var(--grey-text-contrast);
 }
 .know-how__number::after {
   content: "+";
@@ -3102,7 +3106,7 @@ body {
   letter-spacing: -1px;
   text-align: left;
   margin: 0;
-  color: var(--grey-text-comm);
+  color: var(--grey-text-contrast);
 }
 @media (min-width: 1728px) {
   .know-how__subtitle {
@@ -3166,8 +3170,6 @@ body {
   }
 }
 .know-how__picture {
-  max-width: 936px;
-  max-height: 557px;
   height: 100%;
   width: 100%;
   display: flex;
@@ -3177,10 +3179,6 @@ body {
   .know-how__picture {
     overflow: hidden;
   }
-}
-.know-how__img {
-  width: 100%;
-  height: auto;
 }
 @media (max-width: 920px) {
   .know-how__img {
@@ -4050,6 +4048,7 @@ table {
   position: relative;
   font-size: 30px;
   top: -30px;
+  line-height: 0;
 }
 .triad__action::after {
   content: "\e8c0";
@@ -4313,8 +4312,6 @@ table {
   }
 }
 .leader__photo {
-  width: 19.25vw;
-  height: 23.16vw;
   z-index: 1;
   position: relative;
   display: flex;
@@ -4337,10 +4334,6 @@ table {
 }
 .leader__wrap {
   position: relative;
-}
-.leader__img {
-  width: auto;
-  height: 100%;
 }
 .leader__decor-orange {
   transform: rotate(10deg);
@@ -4509,8 +4502,6 @@ table {
   }
 }
 .person__photo {
-  max-width: 215px;
-  max-height: 216px;
   z-index: 1;
   position: relative;
   display: flex;
@@ -4521,12 +4512,6 @@ table {
   background-color: transparent;
   border: 0px solid transparent;
   cursor: pointer;
-}
-.person__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
 }
 .person__text {
   padding: 0 5px 0 0;

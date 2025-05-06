@@ -539,6 +539,8 @@ class SliderClass {
 				this.move();
 			}
 		});
+
+		
 		this.inner.addEventListener('touchstart', (event) => {
 			shiftX = event.touches[0].clientX;
         }, {
@@ -1393,7 +1395,14 @@ window.addEventListener('DOMContentLoaded', (e) => {
     //добавляю tn-atom
     //определяю высоту сайта
     Object(_components_tn_atom__WEBPACK_IMPORTED_MODULE_4__["default"])();
-    
+
+
+
+    const ymapLink = document.querySelectorAll('.ymaps-2-1-79-copyright__link');
+    for (let i = 0; i < ymapLink.length; i++) {
+        debugger
+        ymapLink[i].setAttribute("data-filter", "pillows");
+    }
 });
 
 let widthWidow = 0;
@@ -1483,6 +1492,8 @@ $('.leader__action').on('click', function(e) {
     e.preventDefault();
 });
 
+
+
 /***/ }),
 
 /***/ "./src/js/lib/site/map.js":
@@ -1512,15 +1523,13 @@ $.prototype.map = function () {
             hov.forEach(function(item) {
                 item.style.filter = 'grayscale(0)';
             });
-
         });
         myMap.events.add('mouseenter', function () {
             hov.forEach(function(item) {
-                item.style.filter = 'grayscale(100%)';
+                // item.style.filter = 'grayscale(100%)';
             });
         });
     }
-
     ymaps.ready(initMap);
 };
 
@@ -1528,6 +1537,7 @@ $.prototype.map = function () {
 
 try {
     $('.map').map();
+
 } catch (error) {}
 
 

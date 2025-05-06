@@ -18,15 +18,13 @@ $.prototype.map = function () {
             hov.forEach(function(item) {
                 item.style.filter = 'grayscale(0)';
             });
-
         });
         myMap.events.add('mouseenter', function () {
             hov.forEach(function(item) {
-                item.style.filter = 'grayscale(100%)';
+                // item.style.filter = 'grayscale(100%)';
             });
         });
     }
-
     ymaps.ready(initMap);
 };
 
@@ -34,4 +32,5 @@ $.prototype.map = function () {
 
 try {
     $('.map').map();
+
 } catch (error) {}

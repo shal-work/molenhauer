@@ -59,6 +59,8 @@ export default class SliderClass {
 				this.move();
 			}
 		});
+
+		
 		this.inner.addEventListener('touchstart', (event) => {
 			shiftX = event.touches[0].clientX;
         }, {

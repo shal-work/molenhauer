@@ -14,7 +14,8 @@
     max-width: 158px;
     &-orange {
         border: 1px solid var(--orange);
-        background-color: var(--orange);
+        // background-color: var(--orange);
+        background-color: var(--orange-contrast);
         border-radius: 0px;
         &:hover {
             background-color: var(--orange-dark);
@@ -24,12 +25,13 @@
     }
     &-serve {
         background-color: var(--primary60);
+        background-color: transparent;
         border: 2px solid var(--white);
         border-radius: 0px;
         &:hover {
-            background-color: var(--white);
             border: 2px solid var(--white);
             color: var(--primary);
+            background-color: var(--contact);
         }
     }
     &-contact {
