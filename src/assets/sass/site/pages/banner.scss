@@ -142,6 +142,7 @@
     }
 
     &__shapes-agi {  //рамка передняя
+        background-color: var(--primary60);
         width: calc(var(--vw) * 75 + 50px);
         height: calc(var(--vw) * 75 + 50px);
         grid-area: area-1;
@@ -197,6 +198,7 @@
         }
     }
     &__shapes-gan {
+        background-color: var(--primary60);
         width: calc(var(--vw) * 101 + 50px);
         height: calc(var(--vw) * 101 + 50px);
         grid-area: area-2;
@@ -255,6 +257,7 @@
 
 
     &__shapes-zuv {
+        background-color: var(--primary60);
         width: calc(var(--vw) * 127 + 50px);
         height: calc(var(--vw) * 127 + 50px);
         grid-area: area-3;

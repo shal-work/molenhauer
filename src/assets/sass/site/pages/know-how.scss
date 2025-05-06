@@ -50,7 +50,7 @@
         font-weight: 400;
         line-height: calc(var(--vw) * 4 + 19);
         letter-spacing: 0.3px;
-        color: var(--grey-text);
+        color: var(--grey-text-contrast);
         column-count: 2;
         column-gap: 4%;
         @media (min-width: 1728px) {
@@ -321,7 +321,7 @@
         font-weight: 400;
         letter-spacing: 0.3px;
         line-height: 20.8px;
-        color:var(--grey-text);
+        color:var(--grey-text-contrast);
         margin: 0;
         @media (max-width: 920px) {
             font-size: 14px;

@@ -111,7 +111,8 @@ ymaps {
         font-size: 15px;
         font-weight: 700;
         line-height: 22px;
-        color: var(--black3);
+        // color: var(--black3);
+        color: var(--black2);
         margin-left: 12px;
         @media (min-width: 1728px) {
             font-size: 15px;
@@ -143,17 +144,17 @@ ymaps {
         font-size: 15px;
         font-weight: 400;
         line-height: 22.5px;
-        color: var(--orange-light);
+        color: var(--orange-dark);
         padding-bottom: 8px;
-        border-bottom: 1px solid var(--orange-light);
+        border-bottom: 1px solid var(--orange-dark);
     }
     &__ico {
         width: 40px;
         height: 40px;
-        border: 1px solid var(--orange-light);
+        border: 1px solid var(--orange-dark);
         background-color: transparent;
         border-radius: 50%;
-        color: var(--orange-light);
+        color: var(--orange-dark);
         display: flex;
         align-items: center;
         justify-content: center;
