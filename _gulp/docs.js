@@ -53,10 +53,13 @@ const plumberNotify = (title) => {
     }
 }
 
-
+// для нескольких страниц
+// .src('./src/**/*.html')
+// для одной страницы
+// .src('./src/*.html') 
 gulp.task('html:docs', () => {
     return gulp
-        .src('./src/**/*.html')
+        .src('./src/*.html')
         .pipe(changed(docs, {hasChanged: changed.compareContents}))
         .pipe(fileinclude(fileInclude))
         .pipe(webphtml(['.jpg', '.png', '.gif']))

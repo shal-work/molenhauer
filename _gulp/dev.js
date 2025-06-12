@@ -36,6 +36,7 @@ const plumberNotify = (title) => {
 		})
 	}
 }
+
 gulp.task('html:dev', () => {
 	return gulp
 		.src('./src/**/*.html')
@@ -135,14 +136,14 @@ gulp.task('server-dev', () => {
 	gulp.watch('./src/**/*.html', gulp.parallel('html:dev'));
 });
 
-gulp.task('watch:dev', () => {
-	gulp.watch('./src/assets/sass/**/*.scss', gulp.parallel('sass:dev'));
-	gulp.watch('./src/**/*.html', gulp.parallel('html:dev'));
-	gulp.watch('./src/assets/img/*.svg', gulp.parallel('copy-svg:dev'));//новый для svg спрайта
-	gulp.watch(['./src/assets/img/**/*', '!./src/assets/img/**/*.svg'], gulp.parallel('copy-img:dev'));
-	gulp.watch('./src/assets/fonts/**/*', gulp.parallel('copy-fonts:dev'));
-	gulp.watch('./src/js/**/*.js', gulp.parallel('js:dev'));
-});
+// gulp.task('watch:dev', () => {
+// 	gulp.watch('./src/assets/sass/**/*.scss', gulp.parallel('sass:dev'));
+// 	gulp.watch('./src/**/*.html', gulp.parallel('html:dev'));
+// 	gulp.watch('./src/assets/img/*.svg', gulp.parallel('copy-svg:dev'));//новый для svg спрайта
+// 	gulp.watch(['./src/assets/img/**/*', '!./src/assets/img/**/*.svg'], gulp.parallel('copy-img:dev'));
+// 	gulp.watch('./src/assets/fonts/**/*', gulp.parallel('copy-fonts:dev'));
+// 	gulp.watch('./src/js/**/*.js', gulp.parallel('js:dev'));
+// });
 
 gulp.task('build-dev', gulp.parallel('copy-fonts:dev', 'html:dev', 'sass:dev', 'copy-img:dev', 'copy-svg:dev', 'js:dev', 'copy-favicon:dev'));
 

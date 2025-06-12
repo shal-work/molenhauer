@@ -15,10 +15,10 @@
     &-orange {
         border: 1px solid var(--orange);
         // background-color: var(--orange);
-        background-color: var(--orange-contrast);
+        background-color: var(--orange-contrast2);
         border-radius: 0px;
         &:hover {
-            background-color: var(--orange-dark);
+            background-color: var(--orange-light);
             border: 1px solid var(--orange-dark);
             color: var(--white);
         }

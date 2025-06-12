@@ -97,7 +97,8 @@
         font-weight: 800;
         line-height: 17px;
         letter-spacing: 0.3px;
-        color: var(--orange-contrast);
+        color: var(--orange);
+        color: var(--orange-contrast2);
         margin: calc(var(--vw) * 55) 0 0 calc(var(--vw) *37);
         z-index: 999;
         position: absolute;
@@ -112,12 +113,7 @@
             will-change: transform;
             transition: all 0.2s ease;
         }
-        @media (hover: hover) and (pointer: fine) {
-            &:hover::after {
-                transform: scale(1.2) rotate(45deg);
-                cursor: pointer;
-            }
-        }
+
         &-active::after {
             will-change: transform;
             transition: all 0.5s ease;
@@ -126,6 +122,16 @@
         }
         @media (min-width: 1728px) {
             margin: 55px 0 0 37px;
+        }
+        @media (min-width: 1728px) {
+            margin: 55px 0 0 37px;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover::after {
+                transform: scale(1.2) rotate(45deg);
+                cursor: pointer;
+            }
         }
     }
 

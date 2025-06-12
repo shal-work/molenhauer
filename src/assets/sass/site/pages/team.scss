@@ -176,7 +176,8 @@
         position: relative;
     }
     &__img {
-
+        width: 100%;
+        height: auto;
     }
     &__decor-orange {
         transform: rotate(10deg);
@@ -314,7 +315,6 @@
     }
     @media (max-width: 767px) {
         grid-template-columns: repeat(auto-fit, minmax(109px, 113px));
-        grid-template-rows: 1fr;
         row-gap: 30px;
     }
     &__item-modal {
@@ -347,12 +347,12 @@
         background-color: transparent;
         border: 0px solid transparent;
         cursor: pointer;
+        width: 100%;
+        height: auto;
     }
     &__img {
-        // width: 100%;
-        // height: 100%;
-        // object-fit: cover;
-        // object-position: 50% 50%;
+        width: 100%;
+        height: auto;
     }
     &__text {
         padding: 0 5px 0 0 ;
