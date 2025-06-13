@@ -18,4 +18,5 @@ $.prototype.accordionTriad = function(
         })
     }
 };
+
 $('.triad__grid.accordion').accordionTriad();
